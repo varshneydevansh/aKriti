@@ -1,0 +1,36 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+
+# Virtual environments
+.env
+.env/
+.venv/
+env/
+venv/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs and runtime
+*.log
+outputs/
+artifacts/
+
+# OS files
+.DS_Store
+
+# Private/local docs (user requested)
+LOCAL_DOCS/
