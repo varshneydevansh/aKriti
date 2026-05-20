@@ -53,11 +53,11 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 ### Task 0.3: Create research ledger
 
 - **Location:** `docs/akriti-research-ledger.md`
-- **Description:** Classify research items from `LOCAL_DOCS` and Codex chats.
+- **Description:** Classify research items from `LOCAL_DOCS` and provider-native code agent harness chats.
 - **Complexity:** 3
 - **Dependencies:** none
 - **Acceptance Criteria:**
-  - Includes Qwen, GLM-OCR, DeepSeek-OCR, HunyuanOCR, Paddle, TurboQuant, LiteRT, MLX, WebGPU, AdaPaD, TST, Lighthouse, Aurora, JEPA, diffusion/restoration, HURIDOCS, Orion, DFT.
+  - Includes open-weight base-family candidate, external OCR specialist, external OCR specialist, external OCR specialist, external OCR/layout reference, extreme quantization reference, LiteRT, MLX, WebGPU, adaptive low-rank training reference, token-bag pretraining, training-only hierarchical attention, neuron-preserving optimizer, world-model reference, diffusion/restoration, external document-layout reference, Orion, DFT.
   - Labels each item by roadmap role.
 - **Validation:** Manual term coverage check.
 
@@ -69,7 +69,7 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 - **Dependencies:** Task 0.1
 - **Acceptance Criteria:**
   - Locks VLM-first, not wrapper, aKritiDoc-first, exact-search-first, verification mandatory.
-  - Defines Qwen3.7 as watch-only.
+  - Defines open-weight base-family candidate as watch-only.
 - **Validation:** Manual review.
 
 ## Sprint 1: Repository skeleton and aKritiDoc schema
@@ -385,7 +385,7 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 ### Task 8.2: Add PEFT experiment harness
 
 - **Location:** `training/peft/`
-- **Description:** Compare LoRA/QLoRA/DoRA/LoRA+/AdaPaD where available.
+- **Description:** Compare LoRA/QLoRA/DoRA/LoRA+/adaptive low-rank training reference where available.
 - **Complexity:** 7
 - **Dependencies:** Task 8.1
 - **Acceptance Criteria:**
@@ -396,7 +396,7 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 ### Task 8.3: Add model candidate registry
 
 - **Location:** `training/model_registry.yaml`
-- **Description:** Track Qwen3.6, Qwen3.7 watch, Gemma, and other open-weight candidates.
+- **Description:** Track open-weight base-family candidate, open-weight base-family candidate watch, open-weight edge-model reference, and other open-weight candidates.
 - **Complexity:** 3
 - **Dependencies:** none
 - **Acceptance Criteria:**
@@ -536,7 +536,7 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 ### Task 13.2: Add distillation pipeline
 
 - **Location:** `training/distillation/`
-- **Description:** Convert teacher/baseline outputs and human corrections into supervised targets.
+- **Description:** Convert aKriti-owned internal mentor outputs, manifest-recorded open-weight-derived outputs, and human corrections into supervised targets.
 - **Complexity:** 8
 - **Dependencies:** Tasks 8.1, 13.1
 - **Acceptance Criteria:**
@@ -614,3 +614,7 @@ Code:
 3. Add basic validators/exporters.
 4. Add born-digital PDF ingestion.
 5. Add visual workbench fixture viewer.
+
+## Research References
+
+This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.

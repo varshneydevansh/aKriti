@@ -1,6 +1,6 @@
 # aKriti Skills Map
 
-This file records the skills/tooling setup for future aKriti Codex sessions.
+This file records the skills/tooling setup for future aKriti provider-native code agent harness sessions.
 
 ## Source-of-truth custom skills
 
@@ -10,7 +10,7 @@ Project copies live in:
 /Users/devanshvarshney/aKriti/agent-skills/
 ```
 
-Installed Codex copies live in:
+Installed provider-native code agent harness copies live in:
 
 ```text
 /Users/devanshvarshney/.codex/skills/
@@ -23,7 +23,7 @@ mkdir -p ~/.codex/skills
 rsync -a /path/to/aKriti/agent-skills/ ~/.codex/skills/
 ```
 
-Restart Codex after syncing so the new skill metadata is loaded.
+Restart provider-native code agent harness after syncing so the new skill metadata is loaded.
 
 ## aKriti-specific skills created
 
@@ -94,3 +94,7 @@ flowchart TD
     F --> K["aKritiDoc schema + document APIs"]
     G --> L["aKriti Workbench / LibreOffice UI"]
 ```
+
+## Research References
+
+This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.

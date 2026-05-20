@@ -17,7 +17,7 @@ It must power:
 - FilterTube semantic filtering and thumbnail/keyframe understanding
 - Vinti/court-document workflows later
 
-The product is not a wrapper around external OCR/VLM systems. External projects are used only as research references, open-weight starting points, teacher/baseline candidates during R&D, or benchmark opponents.
+The product is not a wrapper around external OCR/VLM systems. External projects are used only as research references, benchmark opponents, or open-weight sources when explicitly adopted through a model manifest.
 
 ## 2. Ownership boundary
 
@@ -35,7 +35,7 @@ temporary local bake-offs during R&D
 ### Not allowed as final product dependencies
 
 ```text
-requiring GLM-OCR / DeepSeek-OCR / HunyuanOCR / PaddleOCR as product engines
+requiring external OCR specialist / external OCR specialist / external OCR specialist / external OCR/layout toolkit as product engines
 requiring third-party cloud OCR/VLM APIs
 shipping aKriti as a wrapper around another document parser
 outsourcing OCR/layout/chart/translation/reasoning identity to another product
@@ -229,16 +229,16 @@ Kriti
   reasoning/action layer for document commands, tool calls, editing, planning
 ```
 
-Qwen3.6 is the current strong open-weight candidate family. Qwen3.7 is the only pending near-term model event to watch before locking the first serious base/teacher. The architecture must not depend on Qwen; Qwen weights are raw material if they remain best.
+open-weight base-family candidate is the current strong open-weight candidate family. open-weight base-family candidate is the only pending near-term model event to watch before locking the first serious base/teacher. The architecture must not depend on open-weight base-family candidate; open-weight base-family candidate weights are raw material if they remain best.
 
 ## 9. Training and ownership flow
 
 ```mermaid
 flowchart TD
-    A["Open weights: Qwen/Gemma/etc"] --> B["Teacher and baseline evaluation"]
+    A["Open weights: open-weight base-family candidate/open-weight edge-model reference/etc"] --> B["Teacher and baseline evaluation"]
     B --> C["Synthetic + licensed real document data"]
     C --> D["aKritiDoc supervised targets"]
-    D --> E["Adapters: LoRA, QLoRA, DoRA, LoRA+, AdaPaD"]
+    D --> E["Adapters: LoRA, QLoRA, DoRA, LoRA+, adaptive low-rank training reference"]
     E --> F["aKriti-adapted checkpoints"]
     F --> G["Distillation into Tiny/Small/Core"]
     G --> H["Owned aKriti model family"]
@@ -251,7 +251,7 @@ flowchart TD
 AkritiRuntime
   Python research backend
   C++ native/LibreOffice bridge
-  GGUF/llama.cpp CPU/NVIDIA backend
+  GGUF/llama.cpp CPU/GPU research source backend
   MLX Apple Silicon backend
   ONNX Runtime cross-platform backend
   LiteRT Android/iOS/edge backend
@@ -399,3 +399,17 @@ It starts from open weights only if useful.
 It owns every product-critical module.
 It exposes stable APIs so any UI/software can plug into it.
 ```
+
+## System diagrams handoff
+
+See `docs/akriti-system-diagrams-and-feature-map.md` for a consolidated visual map of capabilities, document flow, model family, runtime deployment, product surfaces, Vinti downstream boundary, and first executable scaffold path.
+
+## External Research Boundary
+
+The architecture assumes aKriti-owned implementations for OCR, document layout, chart/table understanding, translation, restoration, reasoning, voting, APIs, and runtime integration. External systems may shape engineering decisions, but they are not product modules. Open weights are the only external model artifact allowed into the lineage, with manifest provenance.
+
+Detailed named research notes are kept outside the project repo.
+
+## Research References
+
+This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.

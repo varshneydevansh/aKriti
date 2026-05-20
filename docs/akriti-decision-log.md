@@ -1,6 +1,6 @@
 # aKriti Decision Log
 
-**Status:** Locked decisions as of 2026-05-19
+**Status:** Locked decisions as of 2026-05-20
 
 ## 1. Locked decisions
 
@@ -24,7 +24,7 @@ Decision:
 No external OCR/VLM system is a final product dependency.
 ```
 
-Open weights may be used as initialization/teacher material. Public projects may be studied for ideas. Shipped modules must be aKriti-owned.
+Open weights may be used as initialization or raw model material with honest lineage. Public projects, OCR/VLM systems, papers, repos, model cards, and demos may be studied for engineering ideas only. Shipped modules, labels, verifiers, runtimes, APIs, and product behavior must be aKriti-owned or implemented in-house.
 
 ### D003: aKritiDoc is the canonical primitive
 
@@ -41,17 +41,17 @@ Reason:
 - enables LibreOffice-native edits
 - enables Vinti/court evidence flows
 
-### D004: Qwen3.6/Qwen3.7 are candidate bases, not identity
+### D004: open-weight base-family candidate/open-weight base-family candidate are candidate bases, not identity
 
 Decision:
 
 ```text
-Evaluate Qwen3.6 now and Qwen3.7 when stable/open.
-Do not hardcode aKriti to Qwen.
+Evaluate open-weight base-family candidate now and open-weight base-family candidate when stable/open.
+Do not hardcode aKriti to open-weight base-family candidate.
 ```
 
 Reason:
-- Qwen currently looks strong, but base models change quickly.
+- open-weight base-family candidate currently looks strong, but base models change quickly.
 - The system moat is schema, data, evals, runtime, UI, and integration.
 
 ### D005: Diffusion is restoration-only for now
@@ -120,11 +120,81 @@ Targets:
 - Vinti
 - desktop/mobile/browser apps
 
+### D010: Tokenizer and Hinglish policy
+
+Decision:
+
+```text
+Do not swap tokenizers inside pretrained external VLM/LLM bases in v1.
+For owned student models, evaluate a grapheme-aware Unigram tokenizer with byte fallback.
+Use Hinglish as augmentation/alignment data, not as a replacement for native-script fidelity.
+```
+
+Reason:
+- pretrained model tokenizers are part of the learned distribution and changing them early creates avoidable instability.
+- Indic document intelligence needs native-script fidelity, not only romanized code-mixed handling.
+- a custom tokenizer is justified only when it improves measured OCR/text, translation, compression, or runtime outcomes.
+
+### D011: Benchmark and claim lock
+
+Decision:
+
+```text
+No component, model, parser, runtime, or release claim should be promoted as "better" without measurements.
+```
+
+Required evidence:
+- CER/WER and Indic-script CER
+- structure/layout accuracy
+- grounding and provenance coverage
+- reading-order accuracy
+- table and chart reconstruction quality
+- confidence calibration
+- restoration deltas against original scans
+- Indic and code-mixed stress tests
+- latency, RAM/VRAM, package size, and CPU/GPU behavior for local targets
+
+### D012: Visual blocks are first-class document artifacts
+
+Decision:
+
+```text
+Images, figures, plots, charts, signatures, stamps, diagrams, and embedded visual regions are source artifacts in aKritiDoc.
+Generated captions/descriptions are derived interpretations and must stay separate from source text.
+```
+
+Required metadata:
+- bbox and page coordinates
+- provenance back to original file/page/region
+- artifact type
+- extraction confidence
+- optional generated caption/description
+- optional chart/table reconstruction linked to the source visual region
+
+Reason:
+- LibreOffice, PDFs, court documents, and reports often carry meaning in non-text regions.
+- treating visuals as first-class blocks enables chart QA, figure extraction, evidence review, and safe native edits.
+
+### D013: Ownership wording must be precise
+
+Decision:
+
+```text
+If base weights start from open weights, say so.
+Do not claim parser weights are fully ours until the checkpoint/module is actually owned.
+It is correct to say the aKriti system, schema, API, runtime packaging, evals, and integration layer are ours.
+```
+
+Reason:
+- this protects technical honesty.
+- it separates product ownership from model-weight provenance.
+- it keeps the long-term owned-model path clear without overstating v1.
+
 ## 2. Rejected or delayed paths
 
 | Path | Status | Reason |
 |---|---|---|
-| wrapper around GLM-OCR/DeepSeek/Hunyuan/Paddle | rejected for final product | violates ownership |
+| wrapper around named external OCR/layout systems | rejected for final product | violates ownership |
 | OCR-only product | rejected | insufficient for document intelligence |
 | vector-RAG-only document chat | rejected | misses exact legal/document facts |
 | diffusion as core LLM/VLM | delayed/research-only | not stable/open/product-suitable enough |
@@ -136,12 +206,12 @@ Targets:
 ## 3. Research-only lanes
 
 These are interesting but must not block v1:
-- Lighthouse Attention
-- Token Superposition Training
-- Aurora optimizer
-- NVFP4
-- TwELL sparse FFN
-- JEPA/LeWM world models
+- hierarchical attention reference
+- token-superposition-style pretraining reference
+- neuron-preserving optimizer optimizer
+- four-bit pretraining reference
+- tile-wise sparse FFN
+- world-model reference/world-model reference world models
 - dLLM/diffusion text
 - Natural Language Autoencoders
 - Goodfire-style neural geometry probes
@@ -149,12 +219,12 @@ These are interesting but must not block v1:
 ## 4. Near-term experiment lanes
 
 Allowed after schema/API/eval skeleton exists:
-- Qwen3.6/Qwen3.7 base evaluation
-- PEFT/LoRA/QLoRA/DoRA/LoRA+/AdaPaD adapters
-- TurboQuant/llama.cpp KV cache compression
+- open-weight base-family candidate/open-weight base-family candidate base evaluation
+- PEFT/LoRA/QLoRA/DoRA/LoRA+/adaptive low-rank training reference adapters
+- extreme quantization reference/llama.cpp KV cache compression
 - MLX/GGUF/ONNX runtime export
 - WebGPU FilterTube tiny model prototype
-- HURIDOCS-style visual layout UI
+- external document-layout reference-style visual layout UI
 - CURIO-style dewarp/rectification
 
 ## 5. Final module naming decision
@@ -216,7 +286,17 @@ all high-impact claims need provenance
 Only one near-term external model event is allowed to affect base selection:
 
 ```text
-Qwen3.7 open-weight release and model card.
+open-weight base-family candidate open-weight release and model card.
 ```
 
 All other new papers must enter the research ledger, not derail the build path.
+
+### D014: External systems are inspiration-only; open weights are the only importable model artifact
+
+**Decision:** aKriti will not depend on external OCR, VLM, PDF, translation, layout, video, restoration, or reasoning systems as product components, teacher systems, verifier systems, or label generators. External projects and papers may be studied, but the implementation must be aKriti-owned. The only external model artifact allowed into aKriti lineage is open weights, with license/provenance recorded in the model manifest.
+
+**Rationale:** The project goal is an owned local-first document intelligence model family that can be integrated natively into LibreOffice, FilterTube, and later Vinti. Wrapping existing systems would not produce the ownership, portability, privacy, or low-compute control that the project needs.
+
+## Research References
+
+This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.

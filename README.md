@@ -73,3 +73,11 @@ aKriti/
 - Keep APIs and schema stable so aKriti can power multiple downstream products.
 - Add verification and learning loops from human corrections.
 - Scale from general documents toward specialized deployments in later phases.
+
+## aKriti Ownership Policy
+
+- Repo-facing docs intentionally avoid naming external systems. External research is inspiration-only; the only external artifact allowed into model lineage is open weights with manifest provenance. Detailed named research notes stay outside the project repo.
+
+## Research Reference Index
+
+- [aKriti research reference index](docs/akriti-research-reference-index.md): numbered paper references `[1]`, `[2]`, etc. mapped to the relevant `akriti-*.md` docs. References are for aKriti-owned implementation only; they are not product dependencies.

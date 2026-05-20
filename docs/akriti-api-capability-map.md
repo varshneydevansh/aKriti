@@ -347,3 +347,7 @@ Every model output must pass at least one of:
 | translation | limited | yes | yes | yes |
 | legal/court reasoning | no | no | guarded | yes |
 | teacher/verifier | no | no | partial | yes |
+
+## Research References
+
+This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
