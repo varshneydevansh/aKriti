@@ -1,0 +1,50 @@
+{
+  "source": "logo_10000_10000.png",
+  "design_law": "heart-as-lowercase-a + visible text 'Kriti' only; no extra 'a'",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "background": "transparent"
+  },
+  "loop": {
+    "fps": 12,
+    "frames": 48,
+    "duration_seconds": 4.0,
+    "seamless": true
+  },
+  "exports": {
+    "transparent_webm_alpha": "exports/akriti_transparent_alpha.webm",
+    "transparent_apng_loop": "exports/akriti_transparent_loop.apng",
+    "animated_svg": "exports/akriti_animated_squigglevision.svg",
+    "lottie_starter_json": "exports/akriti_lottie_starter.json",
+    "clean_transparent_red_png": "exports/akriti_clean_transparent_red.png",
+    "16_9_transparent_centered_png": "exports/akriti_16x9_transparent_centered.png",
+    "png_sequence": "frames/frame_000.png ... frame_047.png"
+  },
+  "layers": {
+    "heart-a": {
+      "full_canvas": "layers/akriti_layer_heart-a.png",
+      "cropped": "layers/akriti_layer_heart-a_cropped.png"
+    },
+    "K": {
+      "full_canvas": "layers/akriti_layer_K.png",
+      "cropped": "layers/akriti_layer_K_cropped.png"
+    },
+    "r": {
+      "full_canvas": "layers/akriti_layer_r.png",
+      "cropped": "layers/akriti_layer_r_cropped.png"
+    },
+    "first-i": {
+      "full_canvas": "layers/akriti_layer_first-i.png",
+      "cropped": "layers/akriti_layer_first-i_cropped.png"
+    },
+    "t": {
+      "full_canvas": "layers/akriti_layer_t.png",
+      "cropped": "layers/akriti_layer_t_cropped.png"
+    },
+    "final-i": {
+      "full_canvas": "layers/akriti_layer_final-i.png",
+      "cropped": "layers/akriti_layer_final-i_cropped.png"
+    }
+  }
+}

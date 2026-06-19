@@ -1,0 +1,30 @@
+aKriti magnifying glass doodle asset family
+Separate transparent PNG variants extracted from the overview sheet.
+01_magnifier_row1_01.png
+02_magnifier_row1_02.png
+03_magnifier_row1_03.png
+04_magnifier_row1_04.png
+05_magnifier_row1_05.png
+06_magnifier_row1_06.png
+07_magnifier_row1_07.png
+08_magnifier_row2_01.png
+09_magnifier_row2_02.png
+10_magnifier_row2_03.png
+11_magnifier_row2_04.png
+12_magnifier_row2_05.png
+13_magnifier_row2_06.png
+14_magnifier_row2_07.png
+15_magnifier_row3_01.png
+16_magnifier_row3_02.png
+17_magnifier_row3_03.png
+18_magnifier_row3_04.png
+19_magnifier_row3_05.png
+20_magnifier_row3_06.png
+21_magnifier_row3_07.png
+22_magnifier_row4_01.png
+23_magnifier_row4_02.png
+24_magnifier_row4_03.png
+25_magnifier_row4_04.png
+26_magnifier_row4_05.png
+27_magnifier_row4_06.png
+28_magnifier_row4_07.png

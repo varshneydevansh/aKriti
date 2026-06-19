@@ -1,0 +1,39 @@
+aKriti tiny eyes doodle asset family
+Separate transparent PNG variants extracted from the tiny eyes overview sheet.
+Use across mascots, UI helper states, stickers, empty states, docs, and doodle components.
+
+01_tiny_eyes_01_row1_col1.png
+02_tiny_eyes_02_row1_col2.png
+03_tiny_eyes_03_row1_col3.png
+04_tiny_eyes_04_row1_col4.png
+05_tiny_eyes_05_row1_col5.png
+06_tiny_eyes_06_row1_col6.png
+07_tiny_eyes_07_row1_col7.png
+08_tiny_eyes_08_row2_col1.png
+09_tiny_eyes_09_row2_col2.png
+10_tiny_eyes_10_row2_col3.png
+11_tiny_eyes_11_row2_col4.png
+12_tiny_eyes_12_row2_col5.png
+13_tiny_eyes_13_row2_col6.png
+14_tiny_eyes_14_row2_col7.png
+15_tiny_eyes_15_row3_col1.png
+16_tiny_eyes_16_row3_col2.png
+17_tiny_eyes_17_row3_col3.png
+18_tiny_eyes_18_row3_col4.png
+19_tiny_eyes_19_row3_col5.png
+20_tiny_eyes_20_row3_col6.png
+21_tiny_eyes_21_row3_col7.png
+22_tiny_eyes_22_row4_col1.png
+23_tiny_eyes_23_row4_col2.png
+24_tiny_eyes_24_row4_col3.png
+25_tiny_eyes_25_row4_col4.png
+26_tiny_eyes_26_row4_col5.png
+27_tiny_eyes_27_row4_col6.png
+28_tiny_eyes_28_row4_col7.png
+29_tiny_eyes_29_row5_col1.png
+30_tiny_eyes_30_row5_col2.png
+31_tiny_eyes_31_row5_col3.png
+32_tiny_eyes_32_row5_col4.png
+33_tiny_eyes_33_row5_col5.png
+34_tiny_eyes_34_row5_col6.png
+35_tiny_eyes_35_row5_col7.png

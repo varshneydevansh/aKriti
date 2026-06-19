@@ -90,6 +90,7 @@ Perception capabilities
   OCR/text reading
   layout detection
   reading order
+  query-based visual grounding
   table structure
   chart/plot understanding
   image/figure understanding
@@ -137,10 +138,12 @@ flowchart TD
     G --> I["aKriti Table Reader"]
     G --> J["aKriti Chart Reader"]
     G --> K["aKriti Image Reader"]
+    G --> P["aKriti Grounding Module"]
     H --> F
     I --> F
     J --> F
     K --> F
+    P --> F
     F --> L["Hybrid Retrieval: exact + layout + vector"]
     L --> M["Kriti Reasoning/Action Module"]
     M --> N["Verification: schema + provenance + validators"]
@@ -164,6 +167,9 @@ aKriti Chart Reader
 
 aKriti Image Reader
   Figures, diagrams, screenshots, captions, alt-text, visual QA.
+
+aKriti Grounding Module
+  Query-to-region localization for stamps, signatures, seals, paragraphs, tables, formulas, handwritten notes, low-confidence spans, and evidence regions.
 
 aKriti Restoration Module
   Non-destructive deblur/denoise/dewarp/super-resolution/character restoration.
@@ -191,6 +197,7 @@ Minimum top-level fields:
 - `tables`
 - `charts`
 - `images`
+- `groundings`
 - `entities`
 - `translations`
 - `transforms`

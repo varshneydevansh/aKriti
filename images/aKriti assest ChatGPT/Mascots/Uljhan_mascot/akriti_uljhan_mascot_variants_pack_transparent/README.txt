@@ -1,0 +1,18 @@
+aKriti Uljhan mascot variants pack - transparent PNG crops.
+Uljhan shows when something feels uncertain, ambiguous, or low-confidence. Not scary, just unsure.
+01_uljhan_front_pose.png
+02_uljhan_side_pose.png
+03_uljhan_happy_pose.png
+04_uljhan_unsure_pose.png
+05_uljhan_verified_pose.png
+06_uljhan_fuzzy_label_pose.png
+07_uljhan_low_confidence_pose.png
+08_uljhan_second_look_pose.png
+09_uljhan_fuzzy_cycle_pose.png
+10_uljhan_peeking_near_ocr_block_pose.png
+11_uljhan_pointing_at_uncertain_region_pose.png
+12_uljhan_fuzzy_word_connected_bubbles_pose.png
+13_uljhan_human_eyes_needed_pose.png
+14_uljhan_maybe_this_shrug_pose.png
+15_uljhan_sticker_version.png
+16_uljhan_tiny_ui_icon_miniset.png

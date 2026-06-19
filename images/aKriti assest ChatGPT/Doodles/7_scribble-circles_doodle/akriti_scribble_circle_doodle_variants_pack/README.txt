@@ -1,0 +1,11 @@
+aKriti scribble circle doodle asset family
+01_scribble_circle_outline_red.png
+02_scribble_circle_tiny_teal.png
+03_scribble_circle_sticker_yellow.png
+04_scribble_circle_filled_blue.png
+05_scribble_circle_outline_pink.png
+06_scribble_circle_face_teal.png
+07_scribble_circle_outline_black.png
+08_scribble_circle_outline_light_blue.png
+09_scribble_circle_spark_yellow.png
+10_scribble_circle_mascot_pink.png

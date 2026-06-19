@@ -1,0 +1,11 @@
+aKriti paper clip doodle asset family
+01_paperclip_red_large.png
+02_paperclip_tiny_teal.png
+03_paperclip_sticker_pink.png
+04_paperclip_two_tone_pastel.png
+05_paperclip_teal_rounded.png
+06_paperclip_face_blue.png
+07_paperclip_outline_black.png
+08_paperclip_light_blue.png
+09_paperclip_celebrate_green.png
+10_paperclip_mascot_pink.png

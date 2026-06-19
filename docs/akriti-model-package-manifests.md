@@ -534,3 +534,118 @@ Detailed named research notes are kept outside the project repo.
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Language support and input-modality manifest extensions
+
+Reference anchors: [35], [36].
+
+Every model/capability package must declare language support by level, not as a vague global claim.
+
+```json
+{
+  "languages_scripts": {
+    "Hindi_Devanagari": {
+      "L0_script_detection": "supported",
+      "L1_ocr_text_reading": "candidate",
+      "L2_layout_reading_order": "candidate",
+      "L3_entity_terminology_preservation": "experimental",
+      "L4_translation_transliteration": "experimental",
+      "L5_structured_extraction_reasoning": "experimental",
+      "L6_vinti_grade": "not_supported",
+      "eval_report_refs": []
+    }
+  },
+  "input_modalities": {
+    "text_prompt": true,
+    "image_page": true,
+    "file_document": true,
+    "region_selection": true,
+    "structured_schema": true,
+    "voice_audio": false
+  },
+  "runtime_precision_reports": [],
+  "known_language_failure_modes": []
+}
+```
+
+Rules:
+
+- `supported` requires held-out eval evidence.
+- `vinti_supported` requires legal/court fixtures, grounding, human-review behavior, and triage stability.
+- voice/audio should remain false unless a separate Shruti package provides ASR/TTS/voice-command artifacts with its own evals.
+- a package can be approved for general Workbench use while blocked for Vinti.
+
+## Harness and feedback release metadata
+
+Reference anchor: [37].
+
+Model packages alone are not enough for Vinti/aKriti behavior. A release must also record the harness that wrapped the model.
+
+```json
+{
+  "release_bundle": {
+    "model_version": "akriti-vinti-0.1.0",
+    "schema_version": "akritiDoc-0.2",
+    "harness_version": "vinti-harness-0.1.3",
+    "analyzer_versions": {
+      "case_type": "0.1.0",
+      "readiness": "0.1.3",
+      "complexity": "0.1.2",
+      "language_ambiguity": "0.1.1",
+      "audit": "0.1.0"
+    },
+    "eval_report_refs": [],
+    "feedback_dataset_refs": [],
+    "rollback_target": "vinti-harness-0.1.2"
+  }
+}
+```
+
+Rules:
+
+- Harness-only releases need eval reports.
+- Adapter releases need eval reports and model manifests.
+- Feedback datasets require consent/privacy eligibility records.
+- Vinti ledger events must be able to reconstruct which release bundle produced a routing state.
+
+## Tokenizer, active-parameter, and orchestrator metadata
+
+Reference anchor: [38].
+
+Model manifests must record tokenizer and runtime behavior because document intelligence quality depends on sequence length, script handling, and local runtime stability.
+
+```json
+{
+  "tokenizer_report": {
+    "vocab_size": 0,
+    "tokenizer_family": "bpe | unigram | sentencepiece | byte_fallback | unknown",
+    "chars_per_token": {
+      "en": 0.0,
+      "hi_Devanagari": 0.0,
+      "hinglish_Latin": 0.0
+    },
+    "tokens_per_page": {},
+    "tokens_per_case_bundle": {},
+    "indic_glyph_cases_report_ref": ""
+  },
+  "architecture_efficiency": {
+    "total_parameters": null,
+    "active_parameters_per_token": null,
+    "is_moe_or_sparse_active": false,
+    "notes": ""
+  },
+  "orchestrator_capability": {
+    "tool_calling": "unsupported | experimental | candidate | supported",
+    "structured_outputs": "unsupported | experimental | candidate | supported",
+    "abstention": "unsupported | experimental | candidate | supported",
+    "loop_control": "unsupported | experimental | candidate | supported",
+    "raw_chain_of_thought_exposed": false
+  }
+}
+```
+
+Rules:
+
+- Bad tokenization for a supported language blocks local-runtime claims until measured and documented.
+- Active-parameter efficiency is useful only if document evals pass; speed without grounding is not a product win.
+- Raw chain-of-thought must not be exposed in legal/court workflows. Expose structured evidence, votes, tool calls, review reasons, and page-grounded rationale instead.

@@ -1,0 +1,11 @@
+aKriti arrow doodle asset family
+01_arrow_outline_large_red.png
+02_arrow_tiny_ui_black.png
+03_arrow_sticker_yellow.png
+04_arrow_filled_blue.png
+05_arrow_curved_pink.png
+06_arrow_face_happy_teal.png
+07_arrow_outline_black.png
+08_arrow_double_light_blue.png
+09_arrow_spark_yellow.png
+10_arrow_mascot_pink.png

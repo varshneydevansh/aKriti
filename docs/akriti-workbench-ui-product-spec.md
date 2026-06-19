@@ -214,3 +214,72 @@ flowchart TD
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## aKritiExtract and aKritiMath UI
+
+Reference anchors: [26], [27].
+
+Workbench needs a structured extraction panel, not only chat.
+
+Core UI states:
+
+- Schema builder: user writes a natural-language request or edits a typed schema.
+- Extraction preview: fields shown with value, type, confidence, and evidence region.
+- Verbatim/normalized toggle: show original source value beside interpreted value.
+- Formula preview: show source crop, LaTeX, rendered preview, MathML/LibreOffice formula candidate, and symbol-level uncertainty.
+- Review queue: low-confidence fields/symbols grouped by severity.
+- Export actions: JSON, Markdown, HTML, Writer fields, Calc table, formula object.
+
+The UI must make uncertainty visible. A formula or legal/financial field with low confidence should feel like a review item, not a completed answer.
+
+## Layer and filter model
+
+Reference anchors: [33], [35].
+
+Workbench is the common review cockpit for aKriti, LibreOffice previews, and Vinti-style downstream review. It must expose filterable document layers early, even before every model lane is high quality.
+
+Layer groups:
+
+| Group | Filters |
+|---|---|
+| source | original, born-digital text, scanned image, restored, diff |
+| block type | paragraph, heading, table, chart, image, stamp, seal, signature, handwriting, formula, footnote, header, footer, unknown |
+| confidence | high, low, conflicting reads, needs review, human verified, analyzer disagreement |
+| language/script | language, script, mixed-script, unknown-script, code-mixed |
+| derived artifacts | translations, summaries, captions, restorations, corrections, export-ready tables, reconstructed charts |
+| actions | preview patches, approved edits, rejected edits, rollback items |
+| downstream | triage state, evidence support, human validation, ledger status |
+
+Required interactions:
+
+- click block -> show source refs, confidence, language/script, derived artifacts, votes, and actions.
+- click translation/restoration/action -> show original source region and derived artifact side-by-side.
+- filter low-confidence language spans -> show only ambiguous spans/crops.
+- filter stamps/signatures -> show visual evidence and OCR/read confidence.
+- filter human-reviewed -> show accepted/corrected/rejected state.
+
+Vinti should be a domain mode over the same Workbench model, not a separate parser UI.
+
+## Parse trace and grid-debug UI
+
+Reference anchor: [39].
+
+Workbench should expose deterministic parse traces for born-digital PDFs. This lets a developer or reviewer understand why text was aligned a certain way before blaming the VLM.
+
+Debug overlays:
+
+- line grouping.
+- left/right/center/floating snap class.
+- flowing paragraph bypass.
+- anchor positions.
+- final grid columns.
+- forward-anchor constraints.
+- sparse block compression.
+- parser warnings.
+
+UI behavior:
+
+- click a parsed text span -> show source PDF bbox and grid decision trace.
+- toggle source text layer vs projected grid text.
+- highlight unstable anchors or overlapping grid placement.
+- allow page/block to be marked for OCR/VLM reread when deterministic parse is insufficient.

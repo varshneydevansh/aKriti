@@ -1,7 +1,7 @@
 # aKriti
 
 <div align="center">
-  <img src="images/logo_2516_1624.png" alt="aKriti Icon" width="580" />
+  <img src="images/aKriti assest ChatGPT/aKriti_animated_gif/akriti_animated_squigglevision.svg" alt="aKriti Icon" width="580" />
   <p>Grounded document intelligence with verifiable extraction and coordinated review</p>
 
   [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/varshneydevansh/aKriti)

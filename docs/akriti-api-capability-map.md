@@ -351,3 +351,270 @@ Every model output must pass at least one of:
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Schema-Guided Extraction and Math/LaTeX Lane
+
+Reference anchors: [26], [27].
+
+Add two first-class API capability groups:
+
+```text
+aKritiExtract: structured extraction from document/page/region/selection
+aKritiMath: formula, LaTeX, MathML, and LibreOffice formula intelligence
+```
+
+### User-facing capabilities
+
+| Capability | Input | Output | Review behavior |
+|---|---|---|---|
+| Generate extraction schema | natural language request + document context | typed extraction schema | preview schema before extraction |
+| Extract structured data | document/page/region/selection + schema | JSON with field evidence/confidence | low-confidence fields go to review |
+| Extract verbatim fields | source text region | exact text with bbox/source refs | never normalize silently |
+| Extract normalized fields | source evidence + target type | date/number/money/entity/citation/etc. | keep original value beside normalized value |
+| Extract formulas | scan/PDF/selection/formula object | LaTeX, MathML, formula object candidate | symbol-level uncertainty visible |
+| Write formulas | user prompt or LaTeX/MathML | LibreOffice formula object or rendered preview | preview before insertion |
+| Convert formulas | LaTeX/MathML/LibreOffice formula/scanned equation | target formula representation | preserve source and conversion warnings |
+
+### `POST /v1/extract`
+
+Inputs:
+
+```json
+{
+  "source_ref": "document | page | region | selection",
+  "schema": {},
+  "mode": "fast | balanced | reasoning | voting",
+  "output_format": "json | markdown | html | calc_table | writer_fields",
+  "evidence_required": true
+}
+```
+
+Outputs:
+
+```json
+{
+  "extraction_id": "extract_...",
+  "values": {},
+  "field_evidence": [],
+  "confidence": {},
+  "review_items": [],
+  "exports": []
+}
+```
+
+### `POST /v1/math/convert`
+
+Inputs:
+
+```json
+{
+  "source_ref": "region | selection | formula_object | text",
+  "source_format": "image | latex | mathml | libreoffice_formula | plain_text",
+  "target_format": "latex | mathml | libreoffice_formula | rendered_preview",
+  "evidence_required": true
+}
+```
+
+Outputs:
+
+```json
+{
+  "math_id": "math_...",
+  "latex": "...",
+  "mathml": "...",
+  "formula_object_patch": {},
+  "symbol_confidence": [],
+  "source_refs": [],
+  "review_items": []
+}
+```
+
+### Routing rule
+
+Use fast extraction when the schema is simple and evidence is clear. Use Kriti voting when fields are ambiguous, mathematical, legal, financial, citation-bearing, or destructive edits are requested.
+
+## Layered document-state API additions
+
+Reference anchors: [33], [35].
+
+aKriti APIs should expose layered, filterable document state instead of one text blob.
+
+### Input modalities
+
+Supported input classes:
+
+```text
+text prompt
+image/page
+file/document bundle
+region/bbox
+selection from host app
+structured schema
+```
+
+Future optional input:
+
+```text
+voice/audio via a separate Shruti lane
+```
+
+Voice should become a separate project/module only if it is useful enough to own:
+
+```text
+Shruti ASR/TTS/voice-command artifacts -> aKriti API calls -> aKritiDoc/actions
+```
+
+### Shruti audio bridge APIs
+
+Reference anchor: [40].
+
+Shruti is a separate audio lane that can call aKriti APIs.
+
+```http
+POST /v1/shruti/transcribe
+```
+
+Input:
+
+```json
+{
+  "audio_ref": "file | stream | host_app_audio",
+  "language_hint": "auto | hi | en | ...",
+  "mode": "transcribe | translate",
+  "target_language": "en",
+  "evidence_required": true
+}
+```
+
+Output:
+
+```json
+{
+  "shruti_artifact_id": "shruti_...",
+  "kind": "transcription | speech_translation",
+  "text": "...",
+  "segments": [],
+  "confidence": {},
+  "review_items": []
+}
+```
+
+```http
+POST /v1/shruti/speak
+```
+
+Input:
+
+```json
+{
+  "source_ref": "text | block | selection | document",
+  "voice_profile": "default",
+  "language": "auto | hi | en | ...",
+  "preserve_citations": true
+}
+```
+
+Output:
+
+```json
+{
+  "shruti_artifact_id": "shruti_...",
+  "kind": "speech_audio",
+  "audio_ref": "...",
+  "source_refs": [],
+  "warnings": []
+}
+```
+
+```http
+POST /v1/shruti/command
+```
+
+Input:
+
+```json
+{
+  "audio_ref": "file | stream | host_app_audio",
+  "host_context": {},
+  "allowed_actions": ["translate", "summarize", "extract", "read_aloud", "comment", "action_preview"]
+}
+```
+
+Output:
+
+```json
+{
+  "command_text": "...",
+  "akriti_action_request": {},
+  "requires_confirmation": true,
+  "confidence": {},
+  "review_items": []
+}
+```
+
+Voice commands must produce preview-first aKriti action requests. No voice command should directly apply a destructive edit.
+
+### `GET /v1/documents/{document_id}/layers`
+
+Query parameters:
+
+```text
+include=source,layout,text,tables,charts,images,groundings,translations,restorations,votes,review,triage,ledger
+language=hi
+script=Devanagari
+block_type=stamp,signature,paragraph
+confidence_lt=0.85
+review_state=open
+```
+
+Returns:
+
+```json
+{
+  "document_id": "doc_...",
+  "layers": {},
+  "filters_applied": {},
+  "review_items": [],
+  "warnings": []
+}
+```
+
+### `GET /v1/documents/{document_id}/blocks`
+
+Filterable block query for Workbench, LibreOffice, and downstream products:
+
+```text
+type=paragraph | table | chart | stamp | signature | handwriting | formula | unknown
+language=...
+script=...
+review_state=...
+confidence_lt=...
+has_votes=true
+has_grounding=true
+```
+
+### `POST /v1/documents/{document_id}/actions/preview`
+
+All actions are preview-first:
+
+```json
+{
+  "source_ref": "document | page | region | selection | block | span",
+  "action": "translate | rewrite | correct | insert_formula | export_table | recreate_chart | comment | custom",
+  "constraints": {},
+  "require_user_approval": true
+}
+```
+
+Outputs:
+
+```json
+{
+  "action_id": "act_...",
+  "patch": {},
+  "source_refs": [],
+  "derived_artifacts": [],
+  "risk_level": "low | medium | high",
+  "review_items": []
+}
+```

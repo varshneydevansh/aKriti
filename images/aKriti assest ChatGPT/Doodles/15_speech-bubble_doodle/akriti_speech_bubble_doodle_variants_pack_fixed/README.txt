@@ -1,0 +1,11 @@
+Corrected aKriti speech bubble doodle asset family with safe cropping and padding.
+01_speech_bubble_outline_red.png
+02_speech_bubble_tiny_ellipsis_black.png
+03_speech_bubble_sticker_yellow_face.png
+04_speech_bubble_filled_blue.png
+05_speech_bubble_filled_pink.png
+06_speech_bubble_face_teal.png
+07_speech_bubble_outline_black.png
+08_speech_bubble_chat_pair_light_blue.png
+09_speech_bubble_verified_yellow.png
+10_speech_bubble_mascot_pink.png

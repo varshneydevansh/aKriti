@@ -1,0 +1,11 @@
+aKriti folded document corner doodle asset family with safe cropping and padding.
+01_folded_document_corner_outline_red.png
+02_folded_document_corner_tiny_black.png
+03_folded_document_corner_sticker_yellow.png
+04_folded_document_corner_filled_blue.png
+05_folded_document_corner_outline_pink.png
+06_folded_document_corner_face_teal.png
+07_folded_document_corner_outline_black.png
+08_folded_document_corner_list_light_blue.png
+09_folded_document_corner_verified_yellow.png
+10_folded_document_corner_mascot_pink.png

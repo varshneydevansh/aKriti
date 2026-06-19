@@ -1,0 +1,11 @@
+aKriti fuzzy ambiguity cloud doodle asset family with safe cropping and padding.
+01_fuzzy_ambiguity_cloud_outline_red.png
+02_fuzzy_ambiguity_cloud_tiny_black.png
+03_fuzzy_ambiguity_cloud_sticker_yellow.png
+04_fuzzy_ambiguity_cloud_filled_blue.png
+05_fuzzy_ambiguity_cloud_outline_pink.png
+06_fuzzy_ambiguity_cloud_face_teal.png
+07_fuzzy_ambiguity_cloud_outline_black.png
+08_fuzzy_ambiguity_cloud_text_light_blue.png
+09_fuzzy_ambiguity_cloud_low_confidence_yellow.png
+10_fuzzy_ambiguity_cloud_mascot_pink.png

@@ -1,0 +1,11 @@
+aKriti low confidence circle doodle asset family with safe cropping and padding.
+01_low_confidence_circle_outline_red.png
+02_low_confidence_circle_tiny_black.png
+03_low_confidence_circle_sticker_yellow.png
+04_low_confidence_circle_not_sure_blue.png
+05_low_confidence_circle_outline_pink.png
+06_low_confidence_circle_face_teal.png
+07_low_confidence_circle_info_black.png
+08_low_confidence_circle_might_be_wrong_blue.png
+09_low_confidence_circle_uncertain_yellow.png
+10_low_confidence_circle_mascot_pink.png

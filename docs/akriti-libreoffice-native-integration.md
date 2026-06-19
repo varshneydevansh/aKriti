@@ -199,3 +199,83 @@ flowchart TD
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## LibreOffice Schema Extraction and Formula Workflows
+
+Reference anchors: [26], [27].
+
+LibreOffice integration should expose `aKritiExtract` and `aKritiMath` as native document workflows.
+
+Writer actions:
+
+- Generate an extraction schema from a natural-language request.
+- Extract named entities, dates, citations, clauses, signatures, stamps, and formulas from selection or document.
+- Convert scanned equations into editable LibreOffice formula objects.
+- Insert LaTeX/MathML as formula objects with preview.
+- Export extracted fields to JSON, comments, Writer fields, or a summary table.
+
+Calc actions:
+
+- Extract tables from PDF/image into cells.
+- Extract formulas from screenshots/scans into Calc-compatible or LibreOffice Math-compatible representations.
+- Generate formulas from natural language with preview before insertion.
+- Compare chart data against extracted table/formula values.
+
+Impress actions:
+
+- Extract formulas, figure captions, chart series, and slide metadata.
+- Convert rendered equations into editable formula objects where possible.
+- Generate alt text and math-aware speaker notes.
+
+Safety rule:
+
+```text
+Formula edits, legal/financial fields, citations, and normalized values require preview and evidence. Low-confidence symbols or fields must be shown to the user before insertion.
+```
+
+## Shruti voice and audio workflows
+
+Reference anchor: [40].
+
+Shruti is the audio companion lane for LibreOffice. It should integrate through the same aKriti request envelope and preview/apply rules.
+
+Writer voice workflows:
+
+- dictate text into the current cursor position.
+- transcribe an audio note into a comment.
+- read selected text, page, or section aloud.
+- voice command: "translate this paragraph to English".
+- voice command: "summarize this section".
+- voice command: "rewrite this paragraph formally".
+
+Calc voice workflows:
+
+- read selected cells aloud.
+- voice command: "explain this formula".
+- voice command: "extract this table into the sheet".
+- voice command: "generate a chart from this range".
+
+Impress voice workflows:
+
+- generate speaker notes from selected slide.
+- read slide notes aloud.
+- voice command: "summarize this deck".
+- voice command: "translate this slide".
+
+Safety rules:
+
+- Voice commands create preview-first action requests.
+- Destructive edits require explicit confirmation.
+- Transcripts are derived artifacts and must show confidence for low-quality audio.
+- Read-aloud should preserve citations/page references when requested.
+- Legal/financial/court documents default to comments/suggestions, not direct edits.
+
+Architecture:
+
+```text
+Shruti audio artifact
+    -> aKriti request envelope
+    -> aKritiDoc/action patch
+    -> LibreOffice preview/review
+    -> native UNO operation or read-aloud output
+```

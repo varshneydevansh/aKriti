@@ -1,0 +1,11 @@
+aKriti verified sticker doodle asset family with safe cropping and padding.
+01_verified_seal_green_human_reviewed.png
+02_verified_tiny_check_black.png
+03_verified_label_yellow_green.png
+04_verified_badge_blue.png
+05_verified_stamp_pink.png
+06_verified_face_teal.png
+07_verified_stamp_black_human_reviewed.png
+08_verified_note_approved_blue.png
+09_verified_sticker_celebration_green.png
+10_verified_mascot_round_pink.png

@@ -1,0 +1,18 @@
+aKriti Kagaz mascot variants pack - transparent PNG crops.
+Kagaz carries documents and pages, helps papers stay easy to read, and remembers what belongs where.
+01_kagaz_front_pose.png
+02_kagaz_side_pose.png
+03_kagaz_happy_pose.png
+04_kagaz_unsure_pose.png
+05_kagaz_verified_pose.png
+06_kagaz_carrying_document_pose.png
+07_kagaz_holding_note_pose.png
+08_kagaz_peeking_from_page_edge_pose.png
+09_kagaz_reading_page_pose.png
+10_kagaz_sitting_near_stack_of_pages_pose.png
+11_kagaz_organizing_little_notes_pose.png
+12_kagaz_placing_note_on_page_pose.png
+13_kagaz_pointing_at_folded_corner_pose.png
+14_kagaz_maybe_this_shrug_pose.png
+15_kagaz_sticker_version.png
+16_kagaz_tiny_ui_icon_miniset.png

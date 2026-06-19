@@ -618,3 +618,363 @@ Code:
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Deferred Training Ideas Added To Backlog
+
+- **Periodic low-rank merge training [24]:** later `aKriti Core` continued-pretraining prototype after baseline adapters and evals exist.
+- **Continual low-rank visual personalization [25]:** later restoration prototype for degraded document domains.
+- **Large-cluster inference network topology:** dropped from the current roadmap; revisit only if aKriti operates its own multi-node hosted inference cluster.
+
+## Phase 1.5: aKritiExtract and aKritiMath
+
+Reference anchors: [26], [27].
+
+Insert this phase after initial OCR/layout/table/chart contracts and before full Kriti action/reasoning.
+
+Deliverables:
+
+- `aKritiExtract` schema-guided extraction API.
+- Natural-language-to-extraction-schema draft path.
+- Typed field system: verbatim text, normalized text, number, date, money, entity, citation, table, chart series, LaTeX, MathML, formula object, stamp, signature, unknown.
+- `aKritiMath` formula lane: scanned/rendered formula detection, LaTeX generation, MathML conversion, LibreOffice formula conversion.
+- Evidence and confidence for every extracted field.
+- Review queue for low-confidence fields and symbols.
+- LibreOffice preview/apply flow for formula insertion and structured field insertion.
+
+Do not block Phase 0/1 on model quality. Start with schemas, fixtures, and deterministic/export contracts, then plug model candidates behind the same interface.
+
+## Vinti implementation update: NBF-compatible ledger and bounded voter loops
+
+Vinti should treat the permissioned distributed ledger as a first-class product layer, not an optional buzzword. The initial implementation should still be modular:
+
+```text
+aKriti model layer -> Vinti analyzer layer -> human review -> ledger adapter
+```
+
+Recommended implementation choices:
+
+- aKriti research/training: Python with PyTorch/JAX, built from open-weight bases plus aKriti-owned data/evals/modules.
+- Vinti analyzer orchestration: service layer with typed analyzer outputs and bounded voting loops.
+- Vinti ledger adapter: Go-first if targeting Hyperledger Fabric or NBF-style chaincode/service environments; Kotlin/JVM if a Corda-like notary model is selected; keep both behind an adapter interface.
+- Vinti UI: split-pane page review with source page, extraction, analyzer votes, low-confidence glows, and ledger status.
+
+Bounded loop requirement:
+
+- Run 5-7 voters for high-impact triage questions.
+- Allow targeted reread, restoration, critique, and revote.
+- Stop after fixed iteration/runtime budget.
+- If confidence remains low, mark `needs_human_review`.
+- Store loop traces and hashes for later ledger anchoring after human validation.
+
+## Phase 1.6: aKriti Ground and precision-stability gate
+
+Reference anchors: [30], [31], [32].
+
+Insert this phase after `aKritiExtract`/`aKritiMath` contracts and before full Vinti triage automation.
+
+Deliverables:
+
+- `aKriti Grounding Module` interface:
+
+```python
+ground(page_ref, query, region_scope=None) -> list[GroundedRegion]
+```
+
+- First query set:
+  - `court seal`
+  - `signature`
+  - `case number`
+  - `party names`
+  - `section number`
+  - `handwritten note`
+  - `table`
+  - `formula`
+  - `low confidence text`
+  - `paragraph supporting this claim`
+- aKritiDoc grounding objects with bbox, polygon, confidence, source crop hash, query, and review state.
+- Split-pane UI overlays for grounded regions and disputed evidence.
+- `aKriti Precision Harness`:
+  - compare FP32/reference where feasible, FP16, BF16 where supported, INT8/4-bit variants, GGUF variants later.
+  - check text accuracy, JSON validity, bbox validity, reading order stability, loop/repetition rate, ambiguous glyph behavior, and triage consistency.
+- Runtime fallback policy:
+  - malformed JSON -> retry constrained decode or safer precision.
+  - invalid bbox -> reject grounding and mark review.
+  - repeated loop -> stop generation and mark unstable.
+  - triage drift across precision modes -> require human review.
+
+Do not run seven 8B voters by default. Use the 8B/Vinti-grade model only where it earns the compute. Most voter lanes should use deterministic checks, smaller classifiers, OCR/layout confidence, exact search, and targeted 3B/8B rereads only for disputed high-impact regions.
+
+## Corrected roadmap: capability substrate before downstream products
+
+Reference anchors: [33], [34], [35], [36].
+
+Do not treat translation, chart extraction, restoration, actions, or exports as late optional expansions. Treat them as first-class capability families with early contracts and staged implementation depth.
+
+Updated milestone order:
+
+```text
+P0: aKritiDoc + schemas + module contracts + export/action/review schemas.
+P1: aKriti Workbench static viewer with source page, blocks, overlays, filters, and review items.
+P2: core readers: Layout/Text/Table/Image/Grounding with deterministic or simple baseline paths.
+P3: derived capability skeletons: Translation, Chart, Restoration, Kriti Actions, Exports.
+P4: eval harness + precision harness + confidence/review gates.
+P5: Vinti triage demo consuming aKritiDoc.
+P6: hash-chain/permissioned-ledger adapter after triage objects exist.
+P7: LibreOffice native bridge after edit/export/action contracts stabilize.
+P8: FilterTube Tiny path.
+```
+
+Capability staging rule:
+
+| Capability | Early requirement | Later depth |
+|---|---|---|
+| Translation | derived artifact schema, glossary/entity preservation, layout-fit flags, preview/export path | high-quality Indic translation, Writer layout preservation, terminology consistency |
+| Charts | chart block type, bbox, labels, caption, unknown/review states | data reconstruction, chart recreation, chart QA |
+| Restoration | original/restored/diff artifact schema, deterministic cleanup, source preservation | learned deblur/dewarp/super-resolution/character repair |
+| Actions | preview-only edit patch, risk level, source refs, approval requirement | native Writer/Calc/Impress operations with undo/redo fidelity |
+| Exports | JSON/Markdown/HTML/CSV skeletons | ODT/DOCX/ODS/PPTX fidelity and batch export |
+
+Downstream ownership:
+
+```text
+Vinti consumes aKritiDoc; it does not own document parsing.
+LibreOffice consumes aKritiDoc/actions/exports; it does not own model runtime.
+FilterTube consumes Tiny/local subsets; it does not load Core/Pro by default.
+Workbench is the common review cockpit.
+```
+
+Input modality rule:
+
+```text
+aKriti accepts text prompts, images, pages, files, regions, selections, and document bundles.
+Voice/audio is optional and should be a separate Shruti lane if it becomes serious.
+Shruti can later provide ASR/TTS/voice-command artifacts that call aKriti APIs, but voice should not expand the aKriti core scope now.
+```
+
+## Phase 6.5: Offline feedback, harness versioning, and adapter update loop
+
+Reference anchor: [37].
+
+Add this after the first Vinti triage demo and before any claim of continuous improvement.
+
+Goal:
+
+```text
+Use human-reviewed corrections to improve aKriti and Vinti without allowing production self-modification.
+```
+
+Required components:
+
+- `aKritiFeedback`: correction and failure-event schema.
+- `aKritiHarnessVersion`: versioned prompts, tools, thresholds, retry rules, analyzer weights, review triggers.
+- `aKritiEval`: held-out fixture and regression gate for every harness/model change.
+- `aKritiAdapterTrainer`: offline LoRA/QLoRA/adaptor update path for approved correction datasets.
+- `VintiFeedbackAgent`: offline proposer that labels failure modes and suggests harness/adaptor changes.
+
+Safe improvement flow:
+
+```text
+human correction
+    -> failure/correction event
+    -> feedback agent proposes change
+    -> offline harness/adaptor candidate
+    -> eval gate
+    -> human approval
+    -> versioned release
+    -> rollback target
+```
+
+Blocked:
+
+- production self-training.
+- automatic prompt or threshold mutation.
+- changing analyzer behavior without a new harness version.
+- promoting adapters without held-out eval.
+- committing ledger states without model/harness/schema/analyzer versions.
+
+Clean-room implementation rule:
+
+```text
+Read papers, blogs, model cards, and benchmarks.
+Extract concepts, not code.
+Write aKriti-owned design notes.
+Implement strategic intelligence/workflow modules ourselves.
+Use replaceable license-clean commodity plumbing where it avoids yak-shaving.
+Track every dependency and every weight license.
+```
+
+Commodity plumbing can include PDF rasterizers, image codecs, databases, HTTP frameworks, crypto primitives, and runtime bindings if they are replaceable and license-clean. Core intelligence and workflow remain owned: aKritiDoc, aKritiParse, readers, grounding, ambiguity, evals, Vinti analyzers, Workbench, ledger adapter, and feedback loop.
+
+## Device-agent and tokenizer benchmark lane
+
+Reference anchor: [38].
+
+Add this as a runtime/orchestration research lane after core aKritiDoc contracts and before serious on-device product packaging.
+
+Terminology:
+
+```text
+aKriti Analyzer
+  document-generic module: OCR/layout/grounding/language/table/chart/entity/restoration/precision.
+
+Kriti Orchestrator
+  generic local agent loop: ask -> inspect -> call tool -> validate -> review -> action.
+
+Vinti Analyzer Pack
+  court-logistics domain pack: case type, completeness, readiness, fast-track, ADR/ODR, defects, evidence, validation, ledger readiness.
+```
+
+Implementation tasks:
+
+- Add `aKritiTokenizerBench`:
+  - chars/token for Hindi, English, Hinglish, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, Punjabi, Urdu, Odia, Assamese.
+  - tokens/page for court-style pages.
+  - tokens/case bundle for long files.
+  - tokenization of sections, citations, case numbers, dates, amounts, names, and ambiguous Indic glyph spans.
+- Add `Kriti Orchestrator` interface:
+
+```json
+{
+  "orchestrator_id": "kriti_orch_...",
+  "task": "ground | extract | verify | translate | triage | export | action_preview",
+  "allowed_tools": [],
+  "input_refs": [],
+  "tool_calls": [],
+  "schema_checks": [],
+  "review_items": [],
+  "final_structured_output": {}
+}
+```
+
+- Add device-agent evals:
+  - tool-call validity.
+  - structured-output validity.
+  - abstention correctness.
+  - loop/repetition rate.
+  - evidence pointer completeness.
+  - latency on local runtime packages.
+
+Architecture rule:
+
+```text
+Do not make a text-only local agent the OCR/VLM core.
+Use it as an orchestrator over aKritiDoc and owned analyzers.
+```
+
+Long-context rule:
+
+```text
+Use long context for synthesis and cross-page consistency.
+Do not blindly stuff full case files into context.
+Prefer aKritiDoc indexing, exact search, page/block retrieval, case graphs, and evidence pointers.
+```
+
+## Phase 0.5: aKritiParse deterministic grid projection
+
+Reference anchor: [39].
+
+Add a deterministic born-digital PDF fast path before expensive OCR/VLM calls.
+
+Goal:
+
+```text
+Convert PDF text fragments with coordinates into readable aligned text and structured aKritiDoc blocks/spans.
+```
+
+Pipeline:
+
+```text
+PDF text items
+    -> normalize coordinates and page metrics
+    -> group fragments into visual lines
+    -> estimate median text height and median character width
+    -> extract recurring X anchors
+    -> classify each item as left/right/center/floating
+    -> detect flowing paragraphs and bypass grid projection
+    -> render structured lines onto a monospace grid
+    -> apply forward anchors for column consistency
+    -> compress sparse whitespace and trim margins
+    -> emit text + aKritiDoc + debug trace
+```
+
+Deliverables:
+
+- `aKritiParseGrid` module.
+- grid projection config with tolerances recorded.
+- `parse_trace` object per page/block/span.
+- visual debug overlay/export for Workbench.
+- benchmarks against naive coordinate sorting.
+- fallback to OCR/VLM when text layer is missing or unstable.
+
+Promotion gates:
+
+- preserves table/column alignment better than naive left-to-right extraction.
+- does not corrupt flowing paragraphs.
+- every emitted text span retains original PDF coordinate refs.
+- debug trace explains anchor/snap/grid decisions.
+- output can be rendered in Workbench as source text layer and compared against original page.
+
+## Phase 3.5: Shruti audio bridge and encoder-free multimodal prototype lane
+
+Reference anchor: [40].
+
+`Shruti` should be a separate audio lane that plugs into aKriti rather than becoming aKriti core scope.
+
+Shruti capabilities:
+
+```text
+audio -> text transcription
+audio -> translated text
+text -> speech
+voice command -> aKriti action request
+document read-aloud
+selection dictation
+```
+
+LibreOffice use cases:
+
+- dictate text into Writer.
+- read selected text/page aloud.
+- voice command: "translate this paragraph to English".
+- voice command: "extract this table to Calc".
+- voice command: "summarize this section".
+- audio note -> transcribed comment.
+- accessibility read-aloud for documents.
+
+API bridge:
+
+```text
+Shruti ASR/TTS/voice-command artifacts
+    -> aKriti request envelope
+    -> aKritiDoc/actions/exports
+    -> LibreOffice preview/apply/read-aloud
+```
+
+Encoder-free multimodal prototype:
+
+```text
+Compare:
+  A. separate vision/audio encoders + LLM backbone
+  B. lightweight image/audio projection into LLM token space
+  C. hybrid: lightweight projection + specialized document OCR/layout heads
+```
+
+Evaluation gates:
+
+- OCR CER/WER and Indic CER.
+- layout F1 and reading-order accuracy.
+- bbox stability.
+- table and chart reconstruction.
+- stamp/signature localization.
+- audio transcription WER.
+- voice-command intent accuracy.
+- latency and VRAM.
+- LoRA/adaptor tuning stability.
+
+Rule:
+
+```text
+Shruti can call aKriti.
+aKriti can consume Shruti artifacts.
+But aKriti remains the document-state engine.
+```

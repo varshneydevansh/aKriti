@@ -1,0 +1,17 @@
+aKriti Bindu mascot variants pack - transparent crops.
+01_bindu_front_pose.png
+02_bindu_side_pose.png
+03_bindu_happy_pose.png
+04_bindu_unsure_pose.png
+05_bindu_verified_pose.png
+06_bindu_marking_tiny_detail.png
+07_bindu_magnifying_tiny_speck.png
+08_bindu_dot_over_i_pose.png
+09_bindu_punctuation_helper_pose.png
+10_bindu_ocr_token_marker_pose.png
+11_bindu_character_point_marker_pose.png
+12_bindu_pixel_finder_pose.png
+13_bindu_circling_tiny_detail.png
+14_bindu_maybe_this_shrug_pose.png
+15_bindu_sticker_version.png
+16_bindu_tiny_ui_icon_miniset.png

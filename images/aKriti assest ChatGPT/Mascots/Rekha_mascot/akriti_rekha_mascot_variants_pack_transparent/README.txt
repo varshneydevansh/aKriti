@@ -1,0 +1,18 @@
+aKriti Rekha mascot variants pack - transparent crops.
+Rekha traces structure, follows reading order, and helps layout stay clear.
+01_rekha_front_pose.png
+02_rekha_side_pose.png
+03_rekha_happy_pose.png
+04_rekha_unsure_pose.png
+05_rekha_verified_pose.png
+06_rekha_tracing_bounding_box.png
+07_rekha_reading_order_pose.png
+08_rekha_following_flow_path.png
+09_rekha_layout_box_helper.png
+10_rekha_document_structure_helper.png
+11_rekha_circling_reading_order_steps.png
+12_rekha_layout_fuzzy_pose.png
+13_rekha_organizing_blocks.png
+14_rekha_maybe_this_shrug_pose.png
+15_rekha_sticker_version.png
+16_rekha_tiny_ui_icon_miniset.png

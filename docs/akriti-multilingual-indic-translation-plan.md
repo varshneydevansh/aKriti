@@ -242,3 +242,77 @@ flowchart TD
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## 13. Formal language support levels
+
+Reference anchors: [34], [35].
+
+aKriti must not claim broad language support as a single marketing label. Each language/script must be tagged by measured capability level:
+
+| Level | Capability |
+|---|---|
+| `L0` | script detection |
+| `L1` | OCR/text reading |
+| `L2` | layout-aware reading order |
+| `L3` | entity and terminology preservation |
+| `L4` | translation/transliteration as derived artifacts |
+| `L5` | structured extraction and reasoning |
+| `L6` | Vinti-grade legal/court triage reliability |
+
+Support states:
+
+```text
+experimental
+candidate
+supported
+vinti_supported
+not_supported
+```
+
+Example:
+
+```json
+{
+  "language": "Hindi",
+  "script": "Devanagari",
+  "levels": {
+    "L0": "supported",
+    "L1": "candidate",
+    "L2": "candidate",
+    "L3": "experimental",
+    "L4": "experimental",
+    "L5": "experimental",
+    "L6": "not_supported"
+  },
+  "eval_report_refs": []
+}
+```
+
+Vinti-grade support requires more than OCR:
+
+- case numbers, names, dates, amounts, sections, court names, addresses, exhibit references, stamps, signatures, and orders are preserved or flagged.
+- every high-impact claim links to page/block/span/bbox evidence.
+- ambiguous glyphs or script spans route to review.
+- human review paths are stable.
+
+## 14. Language evaluation gates
+
+Per language/script, record:
+
+- CER/WER and Indic CER.
+- layout accuracy.
+- reading-order accuracy.
+- entity preservation.
+- terminology consistency.
+- translation meaning and layout preservation.
+- ambiguous glyph recall.
+- review recall.
+- hallucination or unsupported-claim rate.
+- Vinti triage drift if the language is used in court workflows.
+
+Tokenizer policy remains:
+
+```text
+Do not change tokenizers inside borrowed/open pretrained bases in v1.
+For owned student models, evaluate Unicode/grapheme behavior, byte fallback, per-script compression, and CER.
+```

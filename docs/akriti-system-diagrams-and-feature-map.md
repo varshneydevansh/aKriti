@@ -478,3 +478,70 @@ Detailed named research notes are kept outside the project repo.
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## 15. Vinti court-logistics and ledger map
+
+Vinti uses aKriti as the document-intelligence layer and adds court-logistics triage plus a permissioned distributed-ledger state layer.
+
+```text
+case file
+  |
+  v
+aKriti parse
+  |
+  v
+page evidence + structured extraction + confidence
+  |
+  v
+Vinti analyzer loops
+  |
+  +--> case type
+  +--> file completeness
+  +--> procedural readiness
+  +--> fast-track suitability
+  +--> mediation/ODR suitability
+  +--> defect correction
+  +--> evidence support
+  +--> disagreement/human validation
+  |
+  v
+triage state
+  |
+  v
+human validation
+  |
+  v
+permissioned ledger adapter
+  |
+  v
+court-controlled workflow history
+```
+
+```mermaid
+flowchart TD
+  A["Case file bundle"] --> B["aKriti document intelligence"]
+  B --> C["Page evidence + structured extraction"]
+  C --> D["On-demand analyzer voter loops"]
+  D --> D1["Case type"]
+  D --> D2["Completeness"]
+  D --> D3["Readiness"]
+  D --> D4["Fast-track suitability"]
+  D --> D5["Mediation/ODR suitability"]
+  D --> D6["Defect correction"]
+  D --> E["Triage state + confidence"]
+  E --> F["Human court/registry validation"]
+  F --> G["Permissioned ledger adapter"]
+  G --> H["Court-controlled audit timeline"]
+```
+
+## 16. Vinti implementation language split
+
+```text
+aKriti training/research: Python + PyTorch/JAX
+aKriti local runtime: Rust/C++/runtime-specific exporters
+Vinti workbench: TypeScript/React
+Vinti orchestration services: Go/Rust/TypeScript/Python depending on deployment
+Vinti permissioned-ledger adapter: Go-first for Fabric/NBF-style targets; Kotlin/JVM if Corda-like
+```
+
+The ledger layer is an adapter. The product should support a court-controlled permissioned network without tying the core aKriti model or Vinti UI to one ledger runtime.

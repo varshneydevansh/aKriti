@@ -372,3 +372,342 @@ See `docs/akriti-contract-schema-implementation-spec.md` for the JSON Schema pac
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Math, LaTeX, and Schema-Guided Extraction Extensions
+
+Reference anchors: [26], [27].
+
+`aKritiDoc` must support structured extraction and formula intelligence as first-class artifacts.
+
+### Extraction schema artifact
+
+```json
+{
+  "artifact_id": "derived_extract_schema_...",
+  "kind": "extraction_schema",
+  "schema_name": "case_metadata | invoice_fields | equations | custom",
+  "fields": [
+    {
+      "field_id": "field_...",
+      "name": "case_number",
+      "type": "verbatim_text | normalized_text | number | date | money | entity | citation | table | chart_series | latex | mathml | formula_object | image_region | stamp | signature | unknown",
+      "required": true,
+      "allow_multiple": false,
+      "normalization_policy": "none | preserve_original | normalize_with_original | derived_only",
+      "review_policy": "auto | review_if_low_confidence | always_review"
+    }
+  ],
+  "created_from": "user_schema | natural_language_request | template",
+  "source_refs": [],
+  "provenance": {}
+}
+```
+
+### Extracted field object
+
+```json
+{
+  "field_id": "field_...",
+  "name": "total_amount",
+  "type": "money",
+  "verbatim_value": "Rs. 1,25,000/-",
+  "normalized_value": {
+    "amount": 125000,
+    "currency": "INR"
+  },
+  "source_refs": [],
+  "confidence": {},
+  "review_required": false,
+  "warnings": []
+}
+```
+
+### Formula object
+
+```json
+{
+  "formula_id": "formula_...",
+  "block_id": "blk_...",
+  "bbox": {},
+  "source_kind": "scanned | born_digital | generated | converted",
+  "latex": "E = mc^2",
+  "mathml": null,
+  "libreoffice_formula": null,
+  "symbol_confidence": [
+    {
+      "symbol": "c",
+      "bbox": {},
+      "confidence": 0.93,
+      "alternatives": ["C", "e"]
+    }
+  ],
+  "source_refs": [],
+  "provenance": {},
+  "review_required": false
+}
+```
+
+Rules:
+
+- LaTeX, MathML, and LibreOffice formula strings are derived artifacts unless they came from a born-digital source.
+- Scanned formula conversion must keep the original image region as source evidence.
+- Ambiguous symbols must be exposed with alternatives.
+- Formula insertion into LibreOffice requires preview unless it is a user-authored direct conversion.
+- Verbatim and normalized values must never be collapsed into one field.
+
+## Grounding and precision-stability extensions
+
+Reference anchors: [30], [31], [32].
+
+`aKritiDoc` must support query-to-region grounding as a first-class verification object. A Vinti or LibreOffice claim is not trusted just because text was generated; it must identify the page/region that supports it.
+
+### Grounded region object
+
+```json
+{
+  "grounding_id": "ground_...",
+  "query": "court seal | signature | case number | party names | paragraph supporting this claim | low confidence text | custom",
+  "target_kind": "text_span | block | table | formula | stamp | seal | signature | handwriting | image_region | unknown",
+  "page_id": "page_...",
+  "block_id": "block_...",
+  "bbox": {
+    "x0": 0.12,
+    "y0": 0.30,
+    "x1": 0.52,
+    "y1": 0.42,
+    "unit": "normalized"
+  },
+  "polygon": [],
+  "point": null,
+  "source_crop_hash": "sha256:...",
+  "confidence": {
+    "score": 0.87,
+    "label": "high | medium | low | needs_review"
+  },
+  "ambiguity": {
+    "has_competing_regions": false,
+    "competing_grounding_ids": []
+  },
+  "provenance": {
+    "engine": "akriti",
+    "model_version": "akriti-ground-...",
+    "runtime_precision": "fp32 | fp16 | bf16 | int8 | int4 | unknown"
+  },
+  "review_required": false
+}
+```
+
+### Precision stability report
+
+```json
+{
+  "precision_report_id": "prec_...",
+  "target_ref": {},
+  "runtime_variants": ["fp32", "fp16", "bf16", "int4"],
+  "json_validity": {
+    "fp32": true,
+    "fp16": true,
+    "bf16": false,
+    "int4": true
+  },
+  "bbox_drift": [
+    {
+      "grounding_id": "ground_...",
+      "max_iou_delta": 0.18,
+      "requires_review": true
+    }
+  ],
+  "text_drift": [],
+  "loop_detected": false,
+  "triage_drift": false,
+  "decision": "stable | unstable_requires_retry | unstable_requires_human_review"
+}
+```
+
+Rules:
+
+- Grounding output is evidence selection, not final legal truth.
+- Invalid bboxes must be rejected or marked for review.
+- Claims used in Vinti triage must link to grounded regions.
+- Low-precision output is not trusted until it passes stability checks for the target lane.
+- If OCR text is stable but grounding is unstable, the UI must show `needs_region_review`.
+
+## Language support and layered document-state extensions
+
+Reference anchors: [33], [34], [35].
+
+Language support is not a boolean. Every language/script claim must state the support level and the document object it applies to.
+
+### Language support levels
+
+| Level | Meaning |
+|---|---|
+| `L0_script_detection` | script can be detected at page/block/span level |
+| `L1_ocr_text_reading` | text can be read with measured CER/WER or equivalent |
+| `L2_layout_reading_order` | layout-aware reading order works for that script/language |
+| `L3_entity_terminology_preservation` | names, dates, amounts, citations, sections, and domain terms are preserved |
+| `L4_translation_transliteration` | translation/transliteration exists as derived artifacts with source refs |
+| `L5_structured_extraction_reasoning` | schema extraction and document reasoning work with evidence |
+| `L6_vinti_grade` | high-stakes court/legal triage claims are allowed only with grounding, review, and safety gates |
+
+### Required language metadata on document objects
+
+Blocks, spans, table cells, chart labels, entities, formulas, captions, and extracted fields should support:
+
+```json
+{
+  "language": "hi | en | mr | ta | unknown",
+  "script": "Devanagari | Latin | Tamil | Common | unknown",
+  "unicode_normalization": "NFC | NFD | NFKC | source_preserved | unknown",
+  "grapheme_offsets": [],
+  "confidence": {
+    "language": 0.94,
+    "script": 0.98,
+    "text": 0.91
+  },
+  "ambiguous_tokens": [],
+  "source_crop_refs": [],
+  "review_state": "accepted | needs_text_review | needs_region_review | needs_language_review | unresolved"
+}
+```
+
+### Layered document state
+
+`aKritiDoc` must allow UIs and APIs to filter by layer:
+
+```text
+source
+born_digital_text
+scanned_image
+layout
+text
+tables
+charts
+images
+stamps
+signatures
+handwriting
+groundings
+translations
+restorations
+summaries
+actions
+exports
+review_items
+analyzer_votes
+downstream_triage
+ledger_state
+```
+
+Rules:
+
+- Translation, transliteration, restoration, rewritten text, summaries, captions, and generated actions are derived artifacts.
+- Derived artifacts must never overwrite source text or source images without explicit user approval.
+- No high-stakes triage claim can be high confidence if its supporting page/block/span has unresolved language, script, region, or precision ambiguity.
+
+## Feedback, correction, and harness-version extensions
+
+Reference anchor: [37].
+
+Human corrections and analyzer failures are first-class artifacts because they become eval cases and possible training data only after consent and review.
+
+### Feedback event object
+
+```json
+{
+  "feedback_id": "fb_...",
+  "case_id_hash": "sha256:...",
+  "document_id_hash": "sha256:...",
+  "page_id": "p014",
+  "target_refs": ["p014_b032"],
+  "error_type": "ocr_error | indic_glyph_ambiguity | layout_error | grounding_error | entity_error | triage_error | action_error | translation_error | restoration_drift | unknown",
+  "model_output": {},
+  "human_correction": {},
+  "visual_crop_hash": "sha256:...",
+  "analyzers_involved": [],
+  "model_version": "akriti-core-...",
+  "harness_version": "vinti-harness-...",
+  "schema_version": "akritiDoc-...",
+  "human_verified": true,
+  "consent_for_training": false,
+  "ledger_anchor_eligible": false,
+  "created_at": "..."
+}
+```
+
+### Harness trace object
+
+```json
+{
+  "harness_trace_id": "htrace_...",
+  "model_version": "akriti-vinti-...",
+  "harness_version": "vinti-harness-...",
+  "schema_version": "akritiDoc-...",
+  "analyzer_versions": {
+    "complexity": "0.1.2",
+    "readiness": "0.1.4",
+    "language_ambiguity": "0.1.1"
+  },
+  "thresholds": {},
+  "retry_policy": {},
+  "review_policy": {},
+  "release_status": "experimental | evaluated | approved | deprecated | rollback"
+}
+```
+
+Rules:
+
+- Feedback events are not automatically training data.
+- Training eligibility requires consent, privacy review, and dataset manifest inclusion.
+- Vinti ledger/audit events must record model version, harness version, schema version, and analyzer versions.
+- Harness changes are new versions, not silent edits.
+
+## Deterministic parse trace and grid projection extensions
+
+Reference anchor: [39].
+
+Born-digital PDFs often provide text fragments with coordinates but no reliable reading order. `aKritiDoc` must preserve both the source coordinates and the deterministic reconstruction decisions.
+
+### Parse trace object
+
+```json
+{
+  "parse_trace_id": "ptrace_...",
+  "page_id": "p001",
+  "parser": "akriti_parse_grid",
+  "input_kind": "pdf_text_layer",
+  "median_text_height": 9.8,
+  "median_char_width": 4.9,
+  "line_grouping_tolerance": 5.0,
+  "anchors": {
+    "left": [40.0, 180.0],
+    "right": [520.0],
+    "center": [300.0]
+  },
+  "items": [
+    {
+      "source_item_id": "pdf_item_...",
+      "text": "Revenue",
+      "source_bbox": {},
+      "line_id": "line_005",
+      "snap_class": "left | right | center | floating | flowing_text",
+      "target_grid_col": 10,
+      "final_grid_col": 10,
+      "binding_constraint": "target | line_max | forward_anchor | paragraph_bypass",
+      "forward_anchor_used": false
+    }
+  ],
+  "post_processing": {
+    "sparse_block_compression": true,
+    "margin_trim": true
+  },
+  "warnings": []
+}
+```
+
+Rules:
+
+- Deterministic grid output is a derived text representation, not a replacement for source coordinates.
+- Flowing paragraphs should bypass grid projection when alignment would hurt readability.
+- Tables/schedules should preserve column alignment and original source refs.
+- If anchor/snap decisions are unstable, mark the page/block for review or OCR/VLM reread.

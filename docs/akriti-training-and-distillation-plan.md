@@ -235,3 +235,36 @@ Detailed named research notes are kept outside the project repo.
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Periodic Low-Rank Merge Training Lane
+
+Status: later prototype for `aKriti Core`, not a v1 blocker. Reference anchor: [24].
+
+The training idea is to run repeated low-rank adaptation cycles:
+
+```text
+start from manifest-recorded open-weight base
+train low-rank update on aKriti document tasks
+merge update into model weights
+reset adapter state
+repeat on the next task/corpus slice
+```
+
+Use this lane when the project has:
+
+- Stable `aKritiDoc` fixtures.
+- OCR/layout/table/chart task batches.
+- An AdamW or standard adapter baseline.
+- Evaluation gates for hallucination, exact text preservation, region grounding, translation quality, and low-confidence abstention.
+
+Expected value:
+
+- Lower memory pressure than full continued pretraining.
+- More capacity accumulation than one static adapter.
+- Better fit for document-domain adaptation than pure prompt tuning.
+
+Risks:
+
+- Merge/reset cycles can hide regressions if evaluation is weak.
+- It is training-only; it does not solve inference/runtime packaging.
+- It must not replace the first baseline training recipe.

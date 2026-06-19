@@ -1,0 +1,11 @@
+aKriti cloud doodle asset family
+01_cloud_outline_large_red.png
+02_cloud_tiny_ui_pink.png
+03_cloud_sticker_pink.png
+04_cloud_filled_blue.png
+05_cloud_face_neutral_cream.png
+06_cloud_face_happy_cream.png
+07_cloud_outline_black.png
+08_cloud_outline_light_blue.png
+09_cloud_tiny_spark_teal.png
+10_cloud_mascot_purple.png

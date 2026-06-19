@@ -1,0 +1,11 @@
+aKriti checkbox doodle asset family with safe cropping and padding.
+01_checkbox_outline_red.png
+02_checkbox_tiny_black.png
+03_checkbox_sticker_yellow_checked.png
+04_checkbox_filled_blue.png
+05_checkbox_outline_pink.png
+06_checkbox_face_teal.png
+07_checkbox_outline_black.png
+08_checkbox_checklist_light_blue.png
+09_checkbox_verified_yellow.png
+10_checkbox_mascot_pink.png

@@ -1,0 +1,13 @@
+aKriti underline doodle asset family
+slightly uneven, marker/crayon texture, simple geometry, transparent PNGs
+
+01_underline_red_straight_marker.png
+02_underline_pink_swoosh.png
+03_underline_mustard_double.png
+04_underline_teal_wavy.png
+05_underline_sky_dotted.png
+06_underline_ink_scribble.png
+07_underline_purple_scallop.png
+08_underline_orange_loopy.png
+09_underline_green_verified_check.png
+10_underline_pink_heart_end.png

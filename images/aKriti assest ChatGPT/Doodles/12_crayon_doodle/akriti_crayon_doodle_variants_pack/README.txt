@@ -1,0 +1,11 @@
+aKriti crayon doodle asset family
+01_crayon_red_large.png
+02_crayon_tiny_red.png
+03_crayon_sticker_red.png
+04_crayon_blue.png
+05_crayon_pink.png
+06_crayon_face_green.png
+07_crayon_outline_black.png
+08_crayon_light_blue.png
+09_crayon_celebrate_yellow.png
+10_crayon_mascot_pink.png

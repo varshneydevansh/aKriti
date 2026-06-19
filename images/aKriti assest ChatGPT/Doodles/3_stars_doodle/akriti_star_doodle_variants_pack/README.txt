@@ -1,0 +1,11 @@
+aKriti star doodle asset family
+01_star_outline_large_red.png
+02_star_tiny_ui_yellow.png
+03_star_sticker_yellow.png
+04_star_filled_blue.png
+05_star_face_neutral_pink.png
+06_star_face_happy_teal.png
+07_star_outline_black.png
+08_star_outline_light_blue.png
+09_star_sparkle_yellow.png
+10_star_mascot_pink.png

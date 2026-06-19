@@ -181,3 +181,82 @@ See `docs/akriti-model-package-manifests.md` for the runtime package card fields
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Edge runtime and Rust-host guidance
+
+Reference anchor: [36].
+
+LiteRT-class runtimes are useful for on-device deployment, not for changing the core training plan.
+
+Correct split:
+
+```text
+training/research: Python + PyTorch/JAX
+document ingest/local service: Rust or C++
+runtime package targets: GGUF, MLX, ONNX, LiteRT, Core ML, WebGPU, CUDA/TensorRT/vLLM/SGLang
+host app integrations: C++/UNO for LibreOffice, TypeScript for Workbench/web, Go for Vinti ledger services
+```
+
+Rust is useful for:
+
+- `aKritiParse` PDF/image/document ingest.
+- local service process with safe memory boundaries.
+- runtime adapter orchestration.
+- bindings for Python/Node/WASM where appropriate.
+- hashing/provenance utilities.
+
+LiteRT-class runtime packages are useful for:
+
+- Android/mobile edge execution.
+- NPU/GPU acceleration where supported.
+- Tiny/Small model deployment.
+- possible Core subsets if conversion quality and precision gates pass.
+
+Do not assume:
+
+- Pro/8B Vinti-grade models fit LiteRT-class targets.
+- a converted model is safe just because it runs.
+- runtime speed matters more than evidence, bbox stability, JSON validity, or review behavior.
+
+Promotion gate:
+
+```text
+No runtime package is approved for a surface until it passes aKriti document fixtures, precision-stability checks, package manifest validation, and visible limitation reporting.
+```
+
+## Local orchestrator runtime lane
+
+Reference anchor: [38].
+
+aKriti should support a local orchestrator role separate from the document VLM/readers.
+
+```text
+aKriti readers
+  read/ground/structure documents into aKritiDoc
+
+Kriti Orchestrator
+  coordinates tools, schema validation, review routing, exports, and safe actions
+
+Vinti Analyzer Pack
+  applies court-logistics questions over aKritiDoc and records audit-ready outputs
+```
+
+Runtime targets for the orchestrator can be lighter than the document VLM:
+
+| Runtime package | Orchestrator role |
+|---|---|
+| GGUF | CPU/GPU local tool coordinator |
+| MLX | Apple Silicon local assistant/action loop |
+| ONNX | Windows/edge deployment candidate |
+| vLLM/SGLang | server/on-prem batching for institutions |
+| WebGPU/WASM | Tiny/subset only; browser constraints apply |
+
+Required local-agent checks:
+
+- tool-call schema validity.
+- no unauthorized tool calls.
+- no hidden network calls.
+- abstain when evidence is insufficient.
+- stop on loops/restarts.
+- every action preview links to source refs.
+- every Vinti output records model/harness/schema/analyzer versions.

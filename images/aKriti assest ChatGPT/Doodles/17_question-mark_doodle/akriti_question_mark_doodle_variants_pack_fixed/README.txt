@@ -1,0 +1,11 @@
+aKriti question mark doodle asset family with safe cropping and padding.
+01_question_mark_outline_red.png
+02_question_mark_tiny_black.png
+03_question_mark_sticker_yellow.png
+04_question_mark_filled_blue.png
+05_question_mark_outline_pink.png
+06_question_mark_face_teal.png
+07_question_mark_outline_black.png
+08_question_mark_list_light_blue.png
+09_question_mark_verified_yellow.png
+10_question_mark_mascot_pink.png

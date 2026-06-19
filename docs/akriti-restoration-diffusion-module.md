@@ -231,3 +231,28 @@ flowchart TD
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Continual Low-Rank Visual Personalization Lane
+
+Status: later prototype for degraded-document restoration, not a v1 blocker. Reference anchor: [25].
+
+The restoration module may eventually need domain-specific adaptation for:
+
+- Old court scans.
+- Low-resolution PDFs.
+- Ink bleed.
+- Stamp and seal recovery.
+- Broken Indic glyphs.
+- Handwriting styles.
+- Scanner skew, blur, JPEG noise, and photocopy artifacts.
+
+The engineering idea is to use low-rank visual adaptation so the restoration model can specialize to a degradation family without overwriting previous restoration behavior.
+
+Hard constraints:
+
+- Restoration is non-destructive.
+- Restored text is never treated as ground truth without OCR/evidence verification.
+- Restored seals, signatures, and legal markings must expose uncertainty.
+- The original image region must remain available in `aKritiDoc` provenance.
+
+This lane becomes useful after the base OCR/layout pipeline and confidence reporting exist.

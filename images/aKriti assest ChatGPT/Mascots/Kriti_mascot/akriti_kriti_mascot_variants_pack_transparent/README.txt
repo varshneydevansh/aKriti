@@ -1,0 +1,17 @@
+aKriti Kriti mascot variants pack - transparent crops. Kriti always has two ponytails.
+01_kriti_front_pose.png
+02_kriti_side_pose.png
+03_kriti_happy_pose.png
+04_kriti_unsure_pose.png
+05_kriti_verified_pose.png
+06_kriti_pointing_at_a_page.png
+07_kriti_holding_magnifying_glass.png
+08_kriti_holding_crayon.png
+09_kriti_peeking_from_behind_document.png
+10_kriti_sitting_near_stack_of_pages.png
+11_kriti_raising_hand_when_unsure.png
+12_kriti_looking_at_fuzzy_word.png
+13_kriti_human_eyes_needed_pose.png
+14_kriti_maybe_this_shrug_pose.png
+15_kriti_sticker_version.png
+16_kriti_tiny_ui_icon_miniset.png

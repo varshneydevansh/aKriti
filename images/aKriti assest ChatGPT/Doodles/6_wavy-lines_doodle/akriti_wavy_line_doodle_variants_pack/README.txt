@@ -1,0 +1,11 @@
+aKriti wavy line doodle asset family
+01_wavy_line_thick_red.png
+02_wavy_line_tiny_navy.png
+03_wavy_line_sticker_coral.png
+04_wavy_line_thick_blue.png
+05_wavy_line_looping_pink.png
+06_wavy_line_mascot_teal.png
+07_wavy_line_outline_black.png
+08_wavy_line_double_light_blue.png
+09_wavy_line_spark_yellow.png
+10_wavy_line_mascot_pink.png

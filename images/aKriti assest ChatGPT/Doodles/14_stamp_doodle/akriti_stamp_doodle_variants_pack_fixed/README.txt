@@ -1,0 +1,11 @@
+Corrected aKriti stamp doodle asset family with fixed clipping and safe padding.
+01_stamp_seal_star_red.png
+02_stamp_tiny_check_teal.png
+03_stamp_sticker_heart_pink.png
+04_stamp_seal_asterisk_blue.png
+05_stamp_seal_star_mint.png
+06_stamp_face_yellow.png
+07_stamp_outline_black.png
+08_stamp_outline_heart_blue.png
+09_stamp_verified_yellow.png
+10_stamp_mascot_pink.png

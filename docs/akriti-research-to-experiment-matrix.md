@@ -263,3 +263,80 @@ Detailed named research notes are kept outside the project repo.
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Added Training/Restoration Experiments
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [24] periodic low-rank merge training | `prototype later` | aKriti Core training | Workbench, LibreOffice, local runtime | Compare static adapter vs repeated train-merge-reset cycles on document-domain tasks. | Keep only if it improves OCR/layout/chart/translation evals without increasing hallucination or edit risk. |
+| [25] continual low-rank visual personalization | `watch / later prototype` | Restoration Module | Workbench, LibreOffice degraded scans | Adapt restoration to one degradation family at a time while measuring forgetting on previous degradation families. | Keep only if restoration improves OCR confidence while preserving original-region provenance and uncertainty. |
+
+Network-topology optimization for large inference clusters is intentionally out of scope for the current roadmap.
+
+## Added Schema Extraction and Math Experiments
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [26] schema-guided document extraction | `adopt-now as Phase 1.5 spec` | aKritiExtract | Workbench, LibreOffice, API | Generate/extract typed JSON from document/page/selection using a declared schema. | Valid JSON, typed fields, source evidence, confidence, and verbatim-vs-normalized preservation. |
+| [27] Math/LaTeX document intelligence | `adopt-now as Phase 1.5 spec` | aKritiMath | LibreOffice Writer/Calc/Impress, Workbench | Convert scanned/rendered formulas to LaTeX/MathML/LibreOffice formula candidates. | Symbol-level confidence, original-region provenance, conversion warnings, and preview-before-insert. |
+
+New experiment cards:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-013 | Schema-guided extraction is safer than free-form document chat for structured LibreOffice tasks. | 30 documents across forms, contracts, invoices, academic pages, and court-style pages. | schema/API prototype only. | 95% valid JSON, every field has evidence, low-confidence fields route to review. |
+| EXP-014 | Math extraction needs symbol-level confidence before it is safe for editable formula insertion. | 50 formulas: scanned, born-digital, handwritten-like, low-res, mixed notation. | formula schema + one baseline parser. | LaTeX candidate preserves structure, ambiguous symbols are surfaced, and insertions require preview. |
+
+## Added Document Grounding and Precision Experiments
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [30] structured OCR-layout-table output schema | `adopt-now as schema/eval target` | aKritiDoc, Layout/Text/Table/Math readers | Workbench, LibreOffice, Vinti | Compare aKritiDoc block objects against strong public schema patterns without importing external systems. | Blocks carry labels, reading order, HTML/table/math candidates, polygons, bboxes, confidence, skipped/error states, and page bounds. |
+| [31] parallel visual grounding and query-to-region localization | `adopt-now interface; prototype later` | aKriti Grounding Module | Vinti page UI, Workbench, LibreOffice evidence review | `ground(page, query)` returns regions for seals, signatures, case numbers, paragraphs, tables, formulas, handwritten notes, and low-confidence text. | Region IoU/precision improves over heuristic baselines and every claim can link to source evidence. |
+| [32] precision-stability testing | `adopt-now as safety harness` | aKriti Runtime, Vinti analyzer layer | all high-stakes document paths | Run same pages through available precision/runtime variants and compare JSON validity, bbox stability, text drift, loop rate, and triage drift. | Low-precision mode is allowed only when outputs remain valid and stable; otherwise fallback or human review is required. |
+
+New experiment cards:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-015 | Page-grounded document output must include geometry, labels, reading order, confidence, and error/skipped states before downstream reasoning is safe. | 40 pages across born-digital PDF, scanned PDF, tables, formulas, stamps, handwriting, and mixed scripts. | schema/eval implementation only. | 95% schema validity and all extracted claims have source refs. |
+| EXP-016 | Query-to-region grounding reduces Vinti review time because users can jump directly from a triage claim to supporting page evidence. | 25 court-style pages with seals, signatures, case numbers, names, sections, handwritten notes, tables, and low-confidence regions. | interface + one prototype detector/grounder. | Reviewer can locate supporting evidence faster than manual page scan and ambiguous regions route to review. |
+| EXP-017 | Precision/runtime instability can silently break document tasks even when natural-language output looks plausible. | 20-50 hard pages across OCR, layout, tables, formulas, Indic glyph ambiguity, and Vinti triage. | no model training; runtime comparison harness only. | Loop/malformed JSON/bbox drift/triage drift are detected and trigger fallback or human review. |
+
+## Added Feedback and Harness-Update Experiments
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [37] self-improving analyzer harness and adapter-update loop | `medium-high after MVP` | aKritiFeedback, aKritiEval, Vinti analyzer harness, adapter trainer | Vinti, Workbench correction loop, model registry | Use human-reviewed corrections to propose harness updates and adapter-update candidates, then compare against held-out fixtures. | Promote only if held-out quality improves without worse hallucination, review burden, legal/entity drift, or runtime instability. |
+
+New experiment cards:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-018 | Versioned harness updates can improve Vinti triage before weight updates are needed. | 50 reviewed triage failures across readiness, defects, fast-track, mediation/ODR, evidence grounding, and language ambiguity. | offline harness-only candidate; no production change. | Better triage accuracy and fewer false high-confidence outputs on held-out cases. |
+| EXP-019 | Human-reviewed correction events can train adapters without increasing entity drift. | OCR/glyph/layout/schema failures with consent and privacy-safe fixtures. | one LoRA/QLoRA adapter trial only. | Improves target error class while preserving names, dates, amounts, citations, stamps, signatures, and bbox grounding. |
+
+## Added Deterministic PDF Grid Projection Experiment
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [39] deterministic grid projection for born-digital PDF text layers | `adopt-now for aKritiParse` | aKritiParseGrid | Workbench, LibreOffice, Vinti ingest | Compare naive PDF text extraction against aKriti-owned grid projection on born-digital PDFs with tables, schedules, forms, and multi-column layouts. | Better reading order/alignment with preserved source refs and debug traces; no regression on flowing paragraphs. |
+
+New experiment card:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-020 | Deterministic grid projection can create useful aKritiDoc evidence before any OCR/VLM call. | 30 born-digital PDFs: court orders, financial tables, schedules, forms, reports, footnotes, mixed paragraphs/tables. | parser prototype only, no model training. | 90%+ useful block/span reconstruction, readable aligned text, preserved source coords, and debug trace for misalignment review. |
+
+## Added Encoder-Free Multimodal and Shruti Experiments
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [40] encoder-free multimodal projection | `prototype after baseline VLM evals` | aKriti Core/Pro candidate architecture, Shruti bridge | Workbench, LibreOffice, Vinti later | Compare separate encoder vs lightweight projection vs hybrid projection+document heads on document and audio tasks. | Keep only if latency/VRAM improves without worse OCR, layout, bbox, chart/table, stamp/signature, or audio command quality. |
+
+New experiment cards:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-021 | Lightweight multimodal projection can reduce local latency while preserving aKritiDoc quality. | 50 pages across OCR, layout, tables, charts, stamps, handwritten regions, and mixed scripts. | architecture comparison only after baseline model candidates exist. | Lower latency/VRAM with no regression on CER, layout F1, bbox stability, or aKritiDoc JSON validity. |
+| EXP-022 | Shruti voice commands can improve LibreOffice accessibility without weakening edit safety. | 30 Writer/Calc/Impress voice commands plus read-aloud/transcription samples. | API/schema prototype and one ASR/TTS baseline. | Correct intent routing, preview-first edits, low-confidence transcript review, and no destructive direct application. |

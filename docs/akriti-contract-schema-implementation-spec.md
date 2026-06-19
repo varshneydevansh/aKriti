@@ -771,3 +771,32 @@ This schema layer preserves the locked decisions:
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Schema-Guided Extraction and Formula Schemas
+
+Reference anchors: [26], [27].
+
+Add these schema files to the first implementation batch:
+
+```text
+schemas/
+  extraction/
+    extraction-schema.schema.json
+    extracted-field.schema.json
+    extraction-result.schema.json
+    field-evidence.schema.json
+  math/
+    formula.schema.json
+    symbol-confidence.schema.json
+    math-conversion-request.schema.json
+    math-conversion-result.schema.json
+```
+
+Required invariants:
+
+- Every extracted field has a declared type.
+- Every extracted field has source evidence unless explicitly marked `user_supplied`.
+- Every normalized value preserves the original verbatim source value.
+- Formula conversion keeps the original region, source format, target format, and conversion warnings.
+- Invalid JSON extraction output is a failed artifact, not a partial success.
+- Low-confidence formula symbols must be reviewable in the UI.

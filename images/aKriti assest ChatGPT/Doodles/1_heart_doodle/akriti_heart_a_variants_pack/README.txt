@@ -1,0 +1,10 @@
+aKriti heart-a doodle asset family
+01_heart_a_filled_large.png
+02_heart_a_smile_outline.png
+03_heart_a_filled_rays.png
+04_heart_a_filled_small_rays.png
+05_heart_a_double_heart.png
+06_heart_a_filled_tall.png
+07_heart_a_filled_small.png
+08_heart_a_motion_lines.png
+09_heart_a_smile_rays.png

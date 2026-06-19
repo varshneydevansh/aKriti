@@ -1,0 +1,36 @@
+aKriti little page icon doodle asset family
+Separate transparent PNG variants extracted from the overview sheet.
+Style: warm handmade page/document icons, marker outlines, soft pastel paper fills, tiny doodle details.
+
+01_folded_note_yellow_lines.png
+02_grid_page_tape_pink.png
+03_lined_page_pink_margin.png
+04_spiral_dot_notepad_green.png
+05_blank_note_purple_tape.png
+06_lined_page_teal_tape.png
+07_checklist_yellow.png
+08_grid_page_paperclip_pink.png
+09_torn_note_purple.png
+10_blank_note_paperclip.png
+11_dotted_note_yellow_tape.png
+12_spiral_torn_pink.png
+13_lined_page_blue_holes.png
+14_blank_note_green_clip.png
+15_torn_grid_purple.png
+16_blue_note_tape.png
+17_spiral_lined_green.png
+18_pink_note_heart.png
+19_dashed_blank_blue_tape.png
+20_purple_dot_torn.png
+21_blank_note_star.png
+22_lined_page_holes_yellow_tape.png
+23_folded_note_smiley.png
+24_green_dot_spiral.png
+25_blank_note_purple_tape_corner.png
+26_grid_page_yellow_tape.png
+27_dot_page_spiral_pink.png
+28_folded_blank_yellow.png
+29_purple_spiral_lined.png
+30_blank_note_flower_green_tape.png
+31_pink_lined_folded.png
+32_yellow_dashed_folded.png
