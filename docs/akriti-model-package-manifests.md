@@ -649,3 +649,34 @@ Rules:
 - Bad tokenization for a supported language blocks local-runtime claims until measured and documented.
 - Active-parameter efficiency is useful only if document evals pass; speed without grounding is not a product win.
 - Raw chain-of-thought must not be exposed in legal/court workflows. Expose structured evidence, votes, tool calls, review reasons, and page-grounded rationale instead.
+
+## 2026-07-08 Manifest Addendum: Multimodal Candidate Evaluation Fields
+
+Reference: [46].
+
+When evaluating open-weight multimodal candidate families, include these fields in the model manifest notes or capability card before promotion:
+
+```json
+{
+  "multimodal_architecture": {
+    "vision_input_path": "encoder | encoder_free_projection | hybrid | unknown",
+    "audio_input_path": "none | encoder | encoder_free_projection | separate_shruti_bridge | unknown",
+    "speculative_or_multi_token_decoding": true,
+    "quantization_aware_training_or_release": true,
+    "document_benchmark_claims": []
+  },
+  "akriti_eval_status": {
+    "akriti_doc_validity": "not_run | failed | partial | passed",
+    "bbox_grounding": "not_run | failed | partial | passed",
+    "indic_text": "not_run | failed | partial | passed",
+    "tables_charts_formulas": "not_run | failed | partial | passed",
+    "local_runtime_package": "not_run | failed | partial | passed"
+  }
+}
+```
+
+Rule:
+
+```text
+Do not approve a model package for Workbench, LibreOffice, or downstream products because of public benchmark claims alone. Public claims only decide whether a candidate deserves aKriti-owned evaluation.
+```

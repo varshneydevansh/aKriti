@@ -179,6 +179,8 @@ aKriti Translation Module
 
 Kriti Reasoning/Action Module
   Tool/action planning, constrained JSON calls, document edits, user-facing explanation.
+  LibreOffice actions use the preview-first, permissioned Kriti Action Harness;
+  see `docs/akriti-kriti-libreoffice-action-harness.md`.
 
 aKriti Runtime
   Backend abstraction over GGUF, MLX, ONNX, LiteRT, Core ML, WebGPU/WASM, CUDA/TensorRT.

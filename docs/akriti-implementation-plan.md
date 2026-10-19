@@ -869,11 +869,38 @@ Do not blindly stuff full case files into context.
 Prefer aKritiDoc indexing, exact search, page/block retrieval, case graphs, and evidence pointers.
 ```
 
+## Phase 0.4: open-weight multimodal candidate bakeoff
+
+Do not download or adapt a base model until the schema, fixture, validator, and evaluation scaffold can reject it objectively.
+
+Chronological work:
+
+1. Freeze 50-100 page fixtures across born-digital/scanned pages, Hindi-English code mixing, handwriting, tables, charts, formulas, stamps, signatures, and degraded regions.
+2. Freeze image resolution, tiling, output schema, decoding budget, precision, and runtime measurement protocol.
+3. Compare an edge candidate, an efficient Core candidate, and a medium Pro candidate against the deterministic aKritiParse baseline.
+4. Record license, exact weight hash, tokenizer/processor contract, parameter totals/active parameters, modality frontends, context limits, and unsupported features before execution.
+5. Evaluate CER/Indic CER, layout and reading order, table/chart reconstruction, grounding, aKritiDoc validity, abstention/review recall, peak RAM/VRAM, package size, and sustained latency.
+6. Select no candidate if none passes. The architecture must tolerate an empty winner set.
+
+Candidate interpretation:
+
+```text
+edge multimodal weights       -> Small/local experiment
+efficient multimodal weights  -> Core experiment
+medium unified weights        -> Pro/verifier experiment
+very-large generalist weights -> rejected for local runtime
+leaderboard/survey rank        -> discovery only
+```
+
+No external implementation, processor code, runtime, generated label, teacher output, or verifier enters the project. Only an approved open-weight checkpoint may enter an experiment, with manifest provenance and an aKriti-owned model/runtime implementation path.
+
 ## Phase 0.5: aKritiParse deterministic grid projection
 
 Reference anchor: [39].
 
 Add a deterministic born-digital PDF fast path before expensive OCR/VLM calls.
+
+Start with an owned `aKritiParseInspect` stage. It decides a route per page and region; it does not use the existence of a PDF text layer as sufficient proof of usable text.
 
 Goal:
 
@@ -885,6 +912,8 @@ Pipeline:
 
 ```text
 PDF text items
+    <- inspect PDF operators, fonts, mappings, images, forms, and page geometry
+    <- assign native / native_repair / hybrid / visual / unsupported route with reason codes
     -> normalize coordinates and page metrics
     -> group fragments into visual lines
     -> estimate median text height and median character width
@@ -899,6 +928,9 @@ PDF text items
 
 Deliverables:
 
+- `aKritiParseInspect` page/region router with confidence and reason codes.
+- immutable shared PDF source state so inspection and extraction do not reload the document.
+- encoding and extraction-quality gates for CID mappings, invisible text, replacement glyphs, and implausible text geometry.
 - `aKritiParseGrid` module.
 - grid projection config with tolerances recorded.
 - `parse_trace` object per page/block/span.
@@ -908,6 +940,9 @@ Deliverables:
 
 Promotion gates:
 
+- text-layer presence alone never bypasses extraction-quality checks.
+- mixed documents route only deficient pages/regions to OCR/VLM.
+- route decisions preserve the observable evidence and are reproducible from the same source bytes/configuration.
 - preserves table/column alignment better than naive left-to-right extraction.
 - does not corrupt flowing paragraphs.
 - every emitted text span retains original PDF coordinate refs.
@@ -978,3 +1013,48 @@ Shruti can call aKriti.
 aKriti can consume Shruti artifacts.
 But aKriti remains the document-state engine.
 ```
+
+## 2026-10-14 Research Overlay: Owned CPU Reading and Local Inference
+
+See [the CPU text-reader and compression plan](akriti-cpu-text-reader-and-local-compression-plan.md) and EXP-027 through EXP-030 in the research-to-experiment matrix.
+
+Sequence: existing schema/fixtures and source contracts -> owned native-text checks and compact-reader baseline -> floating-point runtime profile -> isolated rank/precision or visual-budget experiment -> measured device promotion. No external OCR pipeline is an implementation shortcut or label source.
+
+The compact reader is an optional independently implemented capability inside the VLM-first platform. It does not replace table/chart/image understanding, Kriti actions, aKritiDoc review, or the native LibreOffice boundary. Difficult/unsupported visual regions retain owned-model and human-review paths.
+
+Shared-depth speech experiments remain in Shruti, with CTC baselines and bounded-state gates before adaptive exits. No large-teacher training, compressed model, CPU throughput claim or new product capability is delivered by this planning update.
+
+## 2026-10-14 Research Overlay: Owned Visual Retrieval Engine
+
+See [the visual retrieval engineering plan](akriti-visual-retrieval-engineering-plan.md), [the updated storage boundary](akriti-retrieval-grounding-plan.md), and EXP-031 through EXP-033.
+
+This is optional engineering alongside the existing foundations, not a prerequisite that delays ingest, workbench or exact-search delivery. Qdrant and FAISS are not the default implementation or required runtime/database dependencies.
+
+| Order | Existing foundation | Retrieval milestone |
+|---|---|---|
+| 1 | Schema/source contracts, ingestion and page rendering | Stable page/render IDs, source catalog, vector-format proposal and toy float MaxSim learning exercise |
+| 2 | Workbench and search API | Owned exact lookup, permitted-source scope and original-page/evidence opening |
+| 3 | Owned module interfaces and evaluation | Compatible owned or explicitly approved visual/query encoder; small scoped float baseline, EXP-031 |
+| 4 | Runtime profiling | Float16/INT8 first, later controlled low-bit codecs and original-vector rescoring, EXP-032 |
+| 5 | Measured collection-scale need | Owned coarse candidate index compared with the full-scan control, EXP-033 |
+| 6 | LibreOffice and downstream adapters | Bounded current-document local search first; persistent collections and separately scoped Vinti case search later |
+
+The engine owns source catalog, exact lookup, vector layout, candidate generation, scoring, revisions and evidence resolution. Ordinary storage plumbing does not imply an external decision-engine dependency. No general distributed database is needed for the first local version.
+
+Promotion requires multilingual recall, exact source fidelity, total storage/peak memory, cold/warm latency and scope/version integrity. Compression reduces a representation, not automatically the query encoder, original-vector disk storage or verified reading cost. Do not claim large-scale interactive search from a storage projection or small full scan.
+
+Documentation only: no encoder choice/download, index implementation, training, test or performance measurement is authorized or delivered here.
+
+## 2026-10-19 CPU Reader Overlay: Indic Routing and Bounded Specialists
+
+See [Owned Indic CPU Reader and Selective Processing](akriti-indic-cpu-reader-and-selective-processing-plan.md), references [67], [74]-[75], EXP-038 through EXP-041, and the earlier CPU baseline/reread cards.
+
+1. Define permitted independent line/page fixtures, source/render transforms, critical marks and Unicode offset/segmentation conventions.
+2. Build the validated native-text path and an owned printed Devanagari/Latin CPU line-reader control without a language model.
+3. Freeze readers to test script routing; separately compare declared label-unit schemes. Include mixed, shared-symbol, non-text and unknown cases.
+4. Add one bounded context-preserving source reread under EXP-035. Preserve original pixels, alternatives and existing high-impact review policy.
+5. Investigate an owned contextual scorer and conditional math router as separate optional experiments, not mandatory always-on models.
+6. Profile complete execution: width buckets, bounded queues, thread/process choices, active/resident specialists and cold loads; try precision changes only after the float control.
+7. Integrate source-linked review/cancellation into the existing aKritiDoc workbench and native LibreOffice boundary; expand scripts/handwriting only after their own gates.
+
+The platform remains VLM-first with complementary owned CPU capabilities. No external OCR implementation, weights, dictionaries, teacher material or verifier is used. No 1M-parameter, 80-language, handwriting, throughput or device-memory claim is made for aKriti. This is a dependency-ordered plan, not delivered implementation or authorization to run training/benchmarks.

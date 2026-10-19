@@ -45,6 +45,8 @@ Required native behaviors:
 | model manager dialog | choose local aKriti model package |
 | privacy/status indicator | local/remote/runtime state |
 
+The sidebar chat/action pane is implemented as the permissioned Kriti Action Harness. Its request scopes, typed tools, action cards, evidence rules, preview/apply flow, and non-goals are defined in `docs/akriti-kriti-libreoffice-action-harness.md`.
+
 ## 4. Writer workflows
 
 Core actions:

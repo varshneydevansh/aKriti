@@ -668,6 +668,46 @@ Reference anchor: [39].
 
 Born-digital PDFs often provide text fragments with coordinates but no reliable reading order. `aKritiDoc` must preserve both the source coordinates and the deterministic reconstruction decisions.
 
+### PDF inspection and route object
+
+```json
+{
+  "inspection_id": "pinspect_...",
+  "page_id": "p001",
+  "source_hash": "sha256:...",
+  "route": "native | native_repair | hybrid | visual | unsupported",
+  "confidence": 0.96,
+  "observations": {
+    "text_show_operators": 143,
+    "image_objects": 2,
+    "form_objects": 1,
+    "font_mappings_complete": false,
+    "suspected_invisible_text": false,
+    "suspected_garbled_text": true,
+    "positioned_text_available": true
+  },
+  "reason_codes": ["incomplete_cid_mapping", "replacement_glyph_rate_high"],
+  "region_routes": [
+    {
+      "bbox": {},
+      "route": "visual",
+      "reason_codes": ["image_only_region"]
+    }
+  ],
+  "inspector_version": "akriti-parse-inspect-0.1",
+  "config_hash": "sha256:..."
+}
+```
+
+Rules:
+
+- inspection evidence is derived from source PDF structure and remains linked to the immutable source hash;
+- route decisions are page- or region-specific for mixed documents;
+- embedded text is not accepted solely because text operators exist;
+- `native_repair` may repair decoding or structure but must retain original bytes, glyph/font evidence, and positioned source items;
+- `hybrid` combines trustworthy native regions with OCR/VLM only for deficient regions;
+- Markdown, projected grids, and cleaned text are derived views, not replacements for inspection evidence or source coordinates.
+
 ### Parse trace object
 
 ```json

@@ -260,3 +260,58 @@ Required local-agent checks:
 - stop on loops/restarts.
 - every action preview links to source refs.
 - every Vinti output records model/harness/schema/analyzer versions.
+
+## Sparse-attention index reuse watch lane
+
+Reference anchor: [41].
+
+Cross-layer sparse-attention index reuse is a later runtime optimization, not a current deployment requirement.
+
+Use only for:
+
+```text
+a future aKriti Pro/Vinti sparse-attention candidate
+long-document or case-bundle inference
+server/on-prem inference where indexer cost is measurable
+```
+
+Do not use it for:
+
+- aKritiParse.
+- OCR/layout/table/chart extraction.
+- Workbench MVP.
+- local Tiny/Small packaging.
+- replacing exact-search/page-block retrieval.
+
+Runtime gate:
+
+```text
+If sparse attention is present:
+    measure indexer cost
+    compare full-indexer vs reused-index variants
+    run aKritiDoc/Vinti regression fixtures
+    approve only if latency improves without evidence/triage regression
+else:
+    ignore this lane
+```
+
+## 2026-07-08 Runtime Note: Efficient Multimodal Candidate Packages
+
+Reference: [46].
+
+Open-weight multimodal families with quantized variants, speculative/multi-token decoding, and efficient input projection are relevant to aKriti only if they improve a measured runtime tier.
+
+Tier mapping:
+
+| Candidate class | Possible aKriti role | Runtime expectation |
+|---|---|---|
+| small multimodal variant | `aKriti Small` local assist | GGUF/MLX/ONNX/WebGPU only if latency and memory fit local review workflows. |
+| medium multimodal variant | `aKriti Core` candidate | Workbench and LibreOffice async page/region analysis with visible progress. |
+| larger multimodal variant | `aKriti Pro` or verifier | workstation/server/on-prem only unless local packages prove practical. |
+| text-only conversion | `Kriti` reasoning/action over existing aKritiDoc | useful only after aKritiDoc extraction; not a replacement for visual document readers. |
+
+Runtime gate:
+
+```text
+A faster decoder is useful only if OCR/layout/grounding quality and aKritiDoc stability remain acceptable.
+```

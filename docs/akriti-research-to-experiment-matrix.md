@@ -327,6 +327,7 @@ New experiment card:
 | ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
 |---|---|---|---|---|
 | EXP-020 | Deterministic grid projection can create useful aKritiDoc evidence before any OCR/VLM call. | 30 born-digital PDFs: court orders, financial tables, schedules, forms, reports, footnotes, mixed paragraphs/tables. | parser prototype only, no model training. | 90%+ useful block/span reconstruction, readable aligned text, preserved source coords, and debug trace for misalignment review. |
+| EXP-023-pdf-routing | Page-level PDF inspection can avoid unnecessary OCR/VLM while detecting unusable embedded text. | 60 PDFs covering native text, scans, mixed pages, invisible OCR layers, broken CID mappings, image-heavy forms, vector tables, and Indic/RTL text. | owned inspector prototype plus deterministic parser; no model training. | Correct page route and reason code on 95%+ of the fixture slice; no page with garbled or invisible text is silently accepted; all native spans preserve source coordinates and font/encoding evidence. |
 
 ## Added Encoder-Free Multimodal and Shruti Experiments
 
@@ -340,3 +341,104 @@ New experiment cards:
 |---|---|---|---|---|
 | EXP-021 | Lightweight multimodal projection can reduce local latency while preserving aKritiDoc quality. | 50 pages across OCR, layout, tables, charts, stamps, handwritten regions, and mixed scripts. | architecture comparison only after baseline model candidates exist. | Lower latency/VRAM with no regression on CER, layout F1, bbox stability, or aKritiDoc JSON validity. |
 | EXP-022 | Shruti voice commands can improve LibreOffice accessibility without weakening edit safety. | 30 Writer/Calc/Impress voice commands plus read-aloud/transcription samples. | API/schema prototype and one ASR/TTS baseline. | Correct intent routing, preview-first edits, low-confidence transcript review, and no destructive direct application. |
+
+## Added Sparse-Attention Index Reuse Experiment
+
+| Reference | Classification | Module | Product surface | Experiment | Gate |
+|---|---|---|---|---|---|
+| [41] cross-layer sparse-attention index reuse | `watch / later prototype` | aKriti Runtime, Pro/Vinti long-context model candidate | Vinti server/on-prem, Workbench long-document synthesis | If a sparse-attention base is selected, compare full per-layer indexers against cross-layer index reuse on long aKritiDoc/Vinti fixtures. | Keep only if latency improves and no regressions appear in citation recall, bbox/source grounding, structured JSON, or triage stability. |
+
+New experiment card:
+
+| ID | Hypothesis | Benchmark slice | Fixed budget | Promotion gate |
+|---|---|---|---|---|
+| EXP-023-sparse-index-reuse | Cross-layer index reuse can reduce sparse-attention inference cost for long document models without harming evidence-grounded outputs. | 20 long-document/case-bundle fixtures with exact citations, page refs, table references, and triage questions. | only after sparse-attention candidate exists; runtime experiment only. | Prefill/decode speed improves while exact citation recall, source refs, JSON validity, and Vinti triage agreement remain stable. |
+
+## 12. Added experiment lane: open-weight multimodal model-family benchmark
+
+## 2026-10-14 Added Controlled CPU and Compression Cards
+
+Detailed prerequisites, slices, budgets and stop conditions: [Owned CPU Text Reader and Local Compression](akriti-cpu-text-reader-and-local-compression-plan.md).
+
+| Card | One hypothesis | Key promotion evidence |
+|---|---|---|
+| EXP-027-owned-cpu-line-reader | Compact owned CPU reading helps supported clean print | Verified Indic/text fields, geometry, calibrated review and measured end-to-end device cost |
+| EXP-028-native-text-route-ablation | Validated native/visual routing avoids redundant work | Separate born-digital/scanned/hybrid results; no missing, duplicate or falsely trusted spans |
+| EXP-029-risk-aware-low-bit-projection | One changed rank/precision representation improves device cost | Ground-truth critical errors, calibration and actual packed/resident execution |
+| EXP-030-document-token-budget | Reduced visual work preserves source detail | Tiny marks, numbers and grounding retained; original-resolution escalation available |
+
+All cards are planned and unrun. They do not supersede schema/fixture/VLM-first prerequisites, import external engines or labels, select a base, or authorize training/downloads. Treat recursion across depth and adaptive acoustic exits as separate Shruti hypotheses, not a document-model improvement already demonstrated.
+
+## 2026-10-14 Added Controlled Visual Retrieval Cards
+
+Detailed contracts and chronological milestones: [Owned Visual Retrieval Engineering](akriti-visual-retrieval-engineering-plan.md). These cards use references [62]-[66], not an external vector database.
+
+| Experiment | Hypothesis | Prerequisites and isolated change | Measurements |
+|---|---|---|---|
+| EXP-031-owned-visual-retrieval-baseline | Page-image token embeddings help discovery beyond exact text alone | Stable source/render IDs, independently labeled multilingual queries, owned or explicitly approved aligned encoder; exact versus exact plus float visual discovery | Recall@K, nDCG@K, exact-hit/page accuracy, language/page-type slices and encoder memory/latency |
+| EXP-032-vector-codec-rescore | Smaller vector representations preserve useful retrieval with bounded I/O | EXP-031 float vectors fixed; start float16/INT8; change one precision; test original-vector rescoring/oversampling separately | Ranking/recall loss, critical source omissions, all stored bytes, peak memory and cold/warm rescore I/O |
+| EXP-033-coarse-candidate-budget | An owned bounded shortlist avoids full scans without unacceptable discovery loss | Full-scan control and measured scale need; freeze vectors/scorer; vary only candidate method/budget | Relevant-page candidate omission, Recall@K, end-to-end p95 latency, index overhead and scope filtering |
+
+Declare promotion thresholds and one-device budgets before execution. A proposed initial evaluation cap is 30 minutes per fixed slice, only after explicit authorization and encoder/fixture availability; training/downloads require separate budgets. Synthetic vectors can exercise scorer mechanics but do not establish document quality.
+
+All three cards remain planned and unrun. No Qdrant/FAISS service or engine dependency is adopted. English benchmark scores do not establish Indic quality; compressed vector size does not establish total RAM/disk; rescoring cannot recover excluded pages; retrieval relevance does not substitute for source verification.
+
+## 2026-10-18 Added Evidence and Adaptive-Compute Cards
+
+Plan: [Evidence and Adaptive Compute](akriti-evidence-and-adaptive-compute-research-plan.md). References [67]-[73]. Existing source/schema and owned reader baselines remain prerequisites.
+
+| Experiment | One controlled question | Primary measurements and gate |
+|---|---|---|
+| EXP-034-critical-unit-evidence | Typed/source/presentation separation versus formatting-only control | Exact value/unit, forbidden rewrite, script-span and source-geometry errors; no increased false certainty |
+| EXP-035-budgeted-region-escalation | Fixed first pass versus one budgeted targeted reread | Matched-risk quality, review load, p50/p95 time and peak RAM including gate/render/cold load |
+| EXP-036-selective-risk-calibration | Fixed heuristic defer rule versus separately calibrated policy | Critical false acceptance, coverage/risk curves, intervals, grouped splits and shifted-source behavior |
+| EXP-037-context-counterfactual | No/helpful/irrelevant/misleading context with fixed candidates | Correct names/values and false contextual substitutions/insertions; independently labelled negatives |
+
+Keep calibration separate from fitting and final evaluation. Repeated crops/models are not independent samples or voters. An oracle selector/context list is a labelled upper bound, never the product result. Declare the risk, sample and device budget before any authorized run; no experiment, artifact approval or guarantee is delivered by these cards.
+
+## 2026-10-19 Added Owned Indic CPU-Reader Cards
+
+Plan: [Owned Indic CPU Reader and Selective Processing](akriti-indic-cpu-reader-and-selective-processing-plan.md). References [67], [74]-[75]. Preserve the existing owned CPU/native controls EXP-027/028 and targeted-reread/calibration/context controls EXP-035/036/037.
+
+| Experiment | Isolated question | Primary measurements and gate |
+|---|---|---|
+| EXP-038-script-route-ablation | Does routing improve a fixed owned shared/specialist candidate set? | Script/mixed/unknown errors, downstream CER, review coverage and model residency/cold loading; oracle route is diagnostic only |
+| EXP-039-indic-label-units | Do declared alternative label units improve difficult Indic combinations? | Fixed data/capacity/decoder; code-point/grapheme/critical-mark errors, unseen combinations, visual/logical-order behavior and runtime |
+| EXP-040-selective-context-rescore | Does one fixed contextual scorer improve unchanged visual candidates over no-LM decoding? | Correct/irrelevant/misleading vocabulary, unseen names, exact numbers/units, false substitutions and total scorer cost |
+| EXP-041-conditional-math-route | Does selective routing preserve ordinary cells while improving formulas? | Same available owned specialist; false math routes, formula fidelity, numeric-cell damage and full latency/residency |
+
+All cards remain planned and unrun. Independent source labels, source transforms and script-aware span fixtures come first. No outside OCR code, preprocessing, dictionary, weights, outputs, labels or verifier is adopted. Package size and 32-core publisher throughput do not establish aKriti laptop performance. Downloads, training and evaluation runs require separate authorization and declared budgets.
+
+The existing open-weight multimodal card follows below unchanged.
+
+Candidate-role constraints:
+
+| Candidate tier | Intended comparison | Reject immediately when |
+|---|---|---|
+| edge, roughly 2B effective | Small/local page assist | package cannot meet declared laptop/mobile memory or has unacceptable Indic CER |
+| efficient, roughly 4B effective | Core document VLM | fails geometry/reading-order/structured-output gates or sustained local runtime |
+| medium, roughly 12B unified | Pro/verifier architecture experiment | cannot justify workstation cost over the Core candidate or loses fine-text accuracy |
+| sparse/native-resolution model | architecture ablation | total storage/runtime complexity outweighs measured document gains |
+| 30B+ dense/old checkpoint | none | always reject for the current local-first roadmap |
+
+General leaderboard rank is not an experiment input. Every candidate receives identical source pages, resolution policy, prompt/schema constraints, precision, decoding budget, and aKritiDoc validator.
+
+| Research/input | Classification | aKriti module lane | Product surface | Required benchmark slice | Promotion gate |
+|---|---:|---|---|---|---|
+| open-weight multimodal model family with encoder-free projection, QAT, speculative/multi-token decoding, and document benchmark relevance [46] | `prototype / benchmark candidate` | `aKriti Small`, `aKriti Core`, `aKriti Pro`, `Kriti Orchestrator` | Workbench, LibreOffice local assist, server/on-prem research | Indian legal-like scans, mixed Hindi/English pages, tables, charts, formulas, stamps, signatures, handwriting crops, JSON/aKritiDoc validity, local runtime package benchmarks | Promote only if it beats the current candidate pool on aKritiDoc quality, provenance, confidence/review behavior, and measured local runtime cost. |
+
+### EXP-026-open-weight-multimodal-family-bakeoff
+
+- Hypothesis: an open-weight multimodal family with efficient projection and quantized variants can serve as a strong aKriti Small/Core/Pro or Kriti candidate without weakening the owned aKritiDoc contract.
+- Module affected: `aKriti Text Reader`, `aKriti Layout Reader`, `aKriti Grounding Module`, `Kriti Reasoning/Action Module`, `aKriti Runtime`.
+- Product surface affected: Workbench, LibreOffice local assist, future Vinti evaluation only after generic document gates pass.
+- Baseline: current open-weight VLM/LLM candidate pool and deterministic aKritiParse/aKritiParseGrid paths.
+- Change: add this family to benchmark pool; do not make it a default base.
+- Dataset slice: 50-100 fixture pages covering scanned text, born-digital pages, Hindi/English mixed spans, tables, charts, formulas, stamps, signatures, handwriting, and degraded regions.
+- Fixed budget: evaluation only; no training unless a separate approved adapter experiment is opened.
+- Metrics: CER/WER, Indic CER, layout/block F1, table structure metrics, chart data reconstruction, bbox/grounding accuracy, JSON/aKritiDoc validity, abstention/review recall, tokens/sec, peak RAM/VRAM, package size.
+- Verification checks: no unsupported claims, source refs required for extracted facts, low-confidence regions must trigger review, destructive edits remain preview-only.
+- Local runtime target: GGUF, MLX, ONNX, LiteRT/Core ML/WebGPU only where package support and eval quality are measurable.
+- Stop condition: model cannot produce stable aKritiDoc-like structured output, runtime cost is too high for target tier, license/provenance is incompatible, or confidence/review behavior is worse than baseline.
+- Promotion gate: improves quality or runtime enough to justify a model-manifest candidate entry.
+- Decision: pending.

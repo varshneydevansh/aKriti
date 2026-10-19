@@ -412,3 +412,60 @@ L6 Vinti-grade legal/court reliability
 **Rationale:** Audio-to-text, text-to-audio, and voice commands are useful for LibreOffice accessibility, dictation, read-aloud, and natural document actions. But audio should not dilute aKriti’s core scope as a source-grounded document state engine.
 
 **Integration rule:** Shruti artifacts can call aKriti APIs and attach to aKritiDoc/actions. Voice commands must produce preview-first action requests; destructive edits require explicit confirmation.
+
+### D028: Sparse-attention index reuse is a later runtime optimization only
+
+**Decision:** Track cross-layer sparse-attention index reuse as a watch/later-prototype lane [41].
+
+**Rationale:** It can reduce long-context inference cost when a sparse-attention model uses expensive per-layer indexers. aKriti does not currently have such a selected base, and the immediate roadmap needs schemas, parsing, OCR/layout, Workbench, confidence, and Vinti triage before sparse-attention kernel/indexer work matters.
+
+**Rule:** Prototype only if a future `aKriti Pro` or `aKriti Vinti` candidate uses sparse attention and indexer cost is measurable. Even then, keep it only if aKritiDoc extraction, evidence grounding, exact citations, structured JSON, and Vinti triage remain stable.
+
+**Non-goal:** This must not encourage full-case context dumping. Structured retrieval, exact search, page/block indexing, and evidence pointers remain first.
+
+## 2026-07-08 Decision Note: Open-Weight Multimodal Candidates Stay Benchmark-Driven
+
+Reference: [46].
+
+Decision:
+
+```text
+New open-weight multimodal releases may enter the aKriti benchmark pool, but they do not replace existing model candidates by default.
+```
+
+Required before adoption:
+
+- license and provenance recorded in the model manifest.
+- aKritiDoc fixture results for OCR, layout, tables, charts, grounding, and structured output.
+- local runtime evidence for the intended tier: Tiny, Small, Core, Pro, or Kriti.
+- confidence, abstention, and review behavior measured against high-risk document spans.
+- clear separation between model capability and owned aKriti product layers.
+
+Interpretation:
+
+```text
+A checkpoint can be a candidate.
+It is not aKriti until it passes through aKritiDoc, manifests, evals, runtime packaging, and review gates.
+```
+
+## 2026-10-14 Research Decision Note: Compact Readers Are Capabilities, Not Identity
+
+References: [50]-[61]. Plan: [Owned CPU Text Reader and Local Compression](akriti-cpu-text-reader-and-local-compression-plan.md).
+
+Preserve the VLM-first, owned-module and source-evidence decisions. An owned CPU line reader and validated native extraction may be prototyped as a low-cost path; no external engine, output-derived labels or verifier becomes infrastructure. A publisher's source-code license does not approve its separately licensed weights.
+
+Compression and shared-depth results are hypotheses until actual device memory, compute, critical source errors and confidence are measured. Repeated shared-model passes are not independent voters. A floating-point prediction is a control, not ground truth.
+
+Do not change Core/base selection, commit actions automatically, or replace first-build milestones with extreme-bit, recursive or custom-kernel work. This note authorizes documentation of controlled research only; no experiment has run.
+
+## 2026-10-14 Research Decision Note: Own Retrieval, Keep Evidence Separate
+
+References: [62]-[66]. Plan: [Owned Visual Retrieval Engineering](akriti-visual-retrieval-engineering-plan.md).
+
+Replace the old FAISS-prototype/Qdrant-persistence default in the retrieval specification. Qdrant and FAISS are not required product dependencies, runtime services, storage formats or API contracts. Persistence, filtering, candidate generation and scoring are responsibilities of our own local engine; external implementations remain research references.
+
+Add page-image multi-vector discovery as an optional lane beside exact/source-structured search. A high relevance score is not proof of a character, stamp, amount or table value. Resolve the original page and use the owned reader/verification path before citing extracted evidence or proposing actions.
+
+Build source-linked exact retrieval and a float scorer first. Require an owned or separately approved compatible encoder for visual quality; test vector compression only against a fixed float baseline; introduce coarse candidate indexing only after a measured scaling problem. Keep original-vector storage/I/O and local query-model memory in the budget.
+
+Preserve aKritiDoc, the general-purpose VLM identity, explicit review and the downstream LibreOffice/Vinti boundaries. No benchmark, novel-method claim, model approval or runtime capability is created by this documentation decision.

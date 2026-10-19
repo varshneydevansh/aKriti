@@ -343,6 +343,58 @@ If a text layer exists, deterministic parsing should create cheap, inspectable a
 VLM/OCR should focus on scanned, visual, ambiguous, or semantically hard regions.
 ```
 
+## 2026-08-02 Deterministic PDF Inspection and Page Routing Update
+
+| Research item | Classification | aKriti use |
+|---|---|---|
+| model-free PDF operator/font/image inspection and per-page routing | `adopt-now for aKritiParse design` | Independently implement page classification, encoding-quality checks, positioned native-text extraction, one-load document state, and reason-coded escalation to OCR/VLM. External work is research context only, never code, package, runtime, output, label source, teacher, verifier, or benchmark dependency. |
+
+Adopt these system contracts:
+
+- classify and route each page rather than assigning one mode to an entire mixed PDF;
+- inspect text-showing operators, image/form objects, font mappings, image coverage, and extraction quality;
+- distinguish extractable text from merely present but garbled, invisible, or structurally unusable text;
+- parse the document once and share immutable source state across inspection and deterministic extraction;
+- retain positioned text, font evidence, source coordinates, route confidence, and fallback reason codes in `aKritiDoc`;
+- invoke aKriti Layout/Text/Table/VLM paths only for pages or regions that fail deterministic gates;
+- treat Markdown as an export, never as the canonical document representation.
+
+Do not adopt self-reported speed or quality numbers as aKriti claims. Reproduce comparisons on aKriti fixture slices, especially mixed PDFs, Indic CID fonts, court orders, invisible OCR layers, vector tables, multi-column layouts, and malformed encodings.
+
+Implementation rule:
+
+```text
+read the public idea and problem statement
+    -> write an aKriti-owned design and invariants
+    -> implement independently against aKritiDoc
+    -> evaluate only with aKriti-owned fixtures and metrics
+```
+
+Do not vendor, port, translate, wrap, call, or derive implementation code from the external project. The only external model artifacts that may enter aKriti lineage are explicitly approved, license-compatible open weights when an aKriti experiment proves they are necessary; their provenance must remain visible.
+
+## 2026-08-02 Open-Weight Multimodal Candidate Update
+
+| Candidate class | Classification | aKriti interpretation |
+|---|---|---|
+| edge multimodal family with roughly 2B-4B effective parameters | `prototype after scaffold/evals exist` | Highest-priority open-weight candidate class for Small/Core comparison. Evaluate document perception, Indic fidelity, structured output, grounding, and sustained local runtime; do not select from provider benchmarks. |
+| medium unified image/audio/text decoder with lightweight projections | `prototype for Pro; watch for Core` | Useful encoder-free hypothesis for end-to-end multimodal adaptation, but fine text and document geometry may still require owned document heads or a specialized visual frontend. |
+| native-resolution sparse VLM with a small active decoder footprint | `architecture reference; optional candidate` | Study adaptive visual token allocation, native-resolution pages, long-document context, and sparse activation. Admit weights only if license and aKriti-owned fixtures justify an experiment. |
+| very-large sparse native multimodal generalist | `reject as local base; watch ideas` | Total weight storage and minimum memory violate local-first targets even when active parameters are smaller. Retain only calibration, abstention, visual crop/zoom tool use, and hybrid-attention hypotheses. |
+| older 30B+ OCR/VLM checkpoint | `reject` | A high general OCR score does not justify workstation-scale weights, old architecture, or weak Indic/legal evidence. |
+| public VLM leaderboard or survey catalog | `discovery-only` | Use only to find original papers/model cards. Never use aggregate rank as a promotion gate or cite a catalog as proof of capability. |
+
+Architecture ideas admitted for owned experiments:
+
+- per-layer embedding capacity for efficient local models;
+- hybrid sliding-window and global attention;
+- native-resolution or adaptive-resolution page processing;
+- lightweight image/audio projection into a shared decoder;
+- sparse expert activation only after dense baselines and profiling;
+- calibrated abstention and variable compute as measurable safety/runtime targets;
+- tool-assisted crop, zoom, and region inspection through owned aKriti tools.
+
+Open weights remain the only external model artifact that may enter an experiment. No external code, processor implementation, runtime, generated output, teacher signal, labels, or verifier may become part of aKriti.
+
 Build as owned implementation:
 
 - group text fragments into visual lines.
@@ -381,3 +433,117 @@ Reject for now:
 - replacing document OCR/layout heads with encoder-free projection without eval evidence.
 - treating model memory as the knowledge base.
 - exposing raw thought traces for legal/document workflows.
+
+## 2026-06-19 Sparse-Attention Index Reuse Update
+
+| Engineering reference | Classification | aKriti interpretation |
+|---|---|---|
+| cross-layer sparse-attention index reuse [41] | `watch / later prototype` | Useful only if a future `aKriti Pro` or `aKriti Vinti` model uses sparse attention where indexer computation is a measured bottleneck. Not relevant to Phase 0/1 parsing, OCR, layout, Workbench, or Vinti MVP. |
+
+Where it fits:
+
+```text
+future long-context runtime optimization
+server/on-prem Vinti inference
+large document/case-bundle synthesis
+```
+
+Promotion gate:
+
+- sparse-attention base exists in our candidate set.
+- indexer cost is measured and significant.
+- reuse strategy improves prefill/decode latency.
+- aKritiDoc extraction, citations, bboxes, and Vinti triage do not regress.
+
+Rule:
+
+```text
+Structured retrieval beats context dumping.
+Index reuse is an optimization after retrieval/indexing architecture is already correct.
+```
+
+## 2026-07-08 Open-Weight Multimodal Model-Family Update
+
+| Engineering reference | Classification | aKriti interpretation |
+|---|---|---|
+| open-weight multimodal model family with encoder-free projection, QAT, speculative/multi-token decoding, and document benchmark coverage [46] | `prototype / benchmark candidate` | Useful for `aKriti Small/Core/Pro` and `Kriti` candidate evaluation. Smaller variants may fit local LibreOffice assist; larger variants may fit Pro, verifier, or teacher roles. Adoption requires aKritiDoc eval wins, runtime manifests, and license/provenance recording. |
+
+Decision unchanged:
+
+```text
+Model names do not define aKriti.
+aKritiDoc, evals, runtime packages, Workbench review, and safe actions define the product.
+```
+
+Promotion gate for [46]:
+
+```text
+A candidate from this family can move beyond benchmark/prototype only if it improves OCR/text, layout, table/chart handling, visual grounding, JSON/aKritiDoc validity, local runtime latency/RAM, and unsupported-claim rate on aKriti fixtures.
+```
+
+## 2026-10-14 Owned CPU Reading and Task-Aware Local Inference
+
+Plan: [Owned CPU Text Reader and Local Compression](akriti-cpu-text-reader-and-local-compression-plan.md).
+
+| Engineering input | Classification | Independent experiment |
+|---|---|---|
+| Modular compact CPU line recognition and native-text/visual routing [50] | `reference-only` / `v1.5-experiment` | Owned fast reader, explicit geometry, supported-script slices and calibrated escalation |
+| Binary latent factorization and geometry alignment [51]-[52] | `v3-research` | One-projection rank/precision ablation after floating-point and INT8 controls |
+| Variable-rank acoustic compression and transition-aware calibration [53]-[54] | `reference-only` | Separate Shruti hypotheses; no claim of novel sub-1-bit ASR |
+| Frozen-layer adapter-training streaming [55] | `reference-only` / `do-not-depend` | Training-memory learning, distinct from deployed model compression |
+| Shared-depth acoustic processing and early exits [56]-[59] | `reference-only` | Shruti-first experiments; document transfer unproved |
+| Modality-aware representation and joint visual budgets [60]-[61] | `v3-research` | Evidence-preserving precision/token experiments, not a generic retention-score shortcut |
+
+No external engine, generated labels, verifier, teacher pipeline or runtime is adopted. Open-weight approval remains separate and license-specific. Named assessments and benchmark/license caveats are kept in the private source note referenced by the plan.
+
+The CPU reader complements the VLM-first platform. Preserve aKritiDoc provenance, exact fields, review and the separate LibreOffice/Vinti/Shruti boundaries. Every card remains planned; package size, process memory, single-page latency and multi-core throughput are different measurements.
+
+## 2026-10-14 Owned Visual Retrieval and Compressed Vector Storage
+
+Plan: [Owned Visual Retrieval Engineering](akriti-visual-retrieval-engineering-plan.md). Canonical boundary: [Retrieval and Grounding](akriti-retrieval-grounding-plan.md), section 5 replaces the old external-store default.
+
+| References | Transfer hypothesis | Required gate |
+|---|---|---|
+| [62] | Multi-vector page images add discovery recall where OCR/text structure is weak | Compatible encoder contract and our own multilingual page/region fixtures |
+| [63] | Compressed scoring plus retained-original rescoring reduces vector traffic while retaining useful ranking | Fixed encoder/query/candidate control, total storage and cold/warm I/O measurements |
+| [64]-[65] | Rotation/calibration/asymmetric scoring may improve extreme low-bit retrieval over naive binary codes | Independently implemented codec, versioned metadata and measured recall/latency tradeoff |
+| [66] | Separating compact resident vectors and disk originals may help bounded device execution | Peak-memory, mapped-page and rescore I/O accounting; not compressed-byte-only claims |
+
+Sequence: source/page identity and exact lookup -> scoped float MaxSim baseline -> controlled codec/rescore ablations -> coarse candidate indexing only after scale requires it -> LibreOffice/Vinti adapters. EXP-031 through EXP-033 are planned and unrun.
+
+Qdrant and FAISS are research references, not required product/runtime dependencies. Metadata filtering and persistence belong to our owned interfaces. Evidence resolution still opens the original source and uses owned reading/verification; relevance does not settle a character, stamp, table cell or legal claim.
+
+Named-source details and publisher benchmark caveats are in the private working note `LOCAL_DOCS/2026-10-14-visual-page-retrieval-and-vector-compression-research.md`. No model is approved, downloaded or trained, and no engine or performance result is delivered by this entry.
+
+## 2026-10-18 Evidence-Preserving Forms and Budgeted Verification
+
+Plan: [Evidence and Adaptive Compute](akriti-evidence-and-adaptive-compute-research-plan.md). Partner: `../../Shruti/docs/INDIC_EVIDENCE_AND_ADAPTIVE_COMPUTE_RESEARCH_PLAN.md`. References [67]-[73] were checked as research sources, not adopted systems.
+
+Prioritize source-linked extracted text versus typed values versus presentation, script-aware spans, owned deterministic gates and realistic contextual negatives. The existing confidence document now labels historical thresholds as uncalibrated placeholders and removes the assumption that 3/5/7 readings are statistically independent.
+
+| Lane | Hypothesis and gate |
+|---|---|
+| Critical-unit evidence | Reduce value/unit and forbidden-rewrite errors without hiding glyph or geometry uncertainty |
+| Bounded region escalation | Improve the risk/resource frontier versus fixed first/second-pass controls, including model residency and cold costs |
+| Selective calibration | Improve accepted-case risk/coverage on sealed and shifted slices; no unconditional correctness certificate |
+| Context counterfactuals | Help with relevant names without inserting plausible but unsupported alternatives |
+
+EXP-034 through EXP-037 are planned and unrun. Early-exit/speech-formatting results do not prove OCR improvement. Dataset rights, consent, source revisions, original-versus-derived dependencies and calibration splits are gates, not afterthoughts.
+
+Potential defensibility lies in rights-cleared real failure coverage, predictable local execution, source-review usability and released evaluation discipline. No novelty, durable moat, funding outcome, model approval or performance claim is made. User corrections are local history by default; global training requires separate explicit eligibility and release policy.
+
+## 2026-10-19 Expanded CPU Script Routing and Selective Processing
+
+Plan: [Owned Indic CPU Reader and Selective Processing](akriti-indic-cpu-reader-and-selective-processing-plan.md). Source anchors [74]-[75]; segmentation anchor [67]. Named assessment: `LOCAL_DOCS/2026-10-19-indra-1-1-owned-reader-research.md`.
+
+Update the reference assessment: earlier limited-script, no-handwriting and smaller-bundle notes are historical, not current publisher limitations. Keep experimental handwriting separate from reliable Indic handwriting and total pipeline resources separate from a main recognizer's parameter count.
+
+| Owned idea | Controlled gate |
+|---|---|
+| Script-aware compact readers | Fixed shared control, mixed/shared/unknown routes, independently labelled script errors and cold/resident resource costs |
+| Indic target units and crops | Preserve vowel/conjunct context and source mappings; compare label units without changing capacity/decoder policy simultaneously |
+| Selective visual rereads | Reuse EXP-035: one bounded better crop before larger-model escalation; count confidently wrong route misses |
+| Contextual ranking | No-LM control and unchanged visual candidates; measure misleading-vocabulary and exact-name/value errors |
+| Conditional math | Same available owned specialist with routing ablations; count numeric-table harm and added memory/latency |
+
+EXP-038 through EXP-041 are planned and unrun. No external engine, weights, dictionaries, output-derived labels or verifier is adopted. The first CPU target remains printed Devanagari/Latin with source-linked review, not an unmeasured universal-language or handwriting claim.

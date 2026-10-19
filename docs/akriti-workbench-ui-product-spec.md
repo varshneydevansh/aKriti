@@ -266,6 +266,15 @@ Reference anchor: [39].
 
 Workbench should expose deterministic parse traces for born-digital PDFs. This lets a developer or reviewer understand why text was aligned a certain way before blaming the VLM.
 
+Before the grid trace, show the deterministic route for every page/region:
+
+- route badge: native, native repair, hybrid, visual, or unsupported;
+- route confidence and reason codes;
+- text/image/form operator evidence;
+- font/CID mapping and suspected-garbled-text warnings;
+- the exact regions escalated to OCR/VLM;
+- a manual reroute action that creates a review event without deleting the original route record.
+
 Debug overlays:
 
 - line grouping.

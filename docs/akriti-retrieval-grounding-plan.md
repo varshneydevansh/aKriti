@@ -65,21 +65,30 @@ Embedding policy:
 - keep embeddings derived and reproducible.
 - store model name/version.
 - never treat vector similarity as evidence by itself.
+- record the embedding-space identifier, preprocessing/render version, dimension, masks and normalization contract.
+- use different indexing/query model sizes together only when their embedding spaces are explicitly aligned and the pairing passes our evaluation.
+- invalidate derived vectors when the source, rendering or encoder contract changes.
 
-## 5. FAISS vs Qdrant role
+## 5. Owned storage and scoring boundary
 
-| Tool | aKriti role |
-|---|---|
-| FAISS | fast local/offline vector index, research, embedded desktop, batch eval |
-| Qdrant | richer local/server vector store with metadata filtering and multi-vector records |
+Updated: 2026-10-14. This replaces the earlier external-vector-store default.
+
+aKriti does not depend on Qdrant or FAISS for its retrieval engine. Their research and documentation may inform design, but neither is the default implementation, runtime service, on-disk format or API contract.
 
 Default path:
 
 ```text
-prototype with FAISS
-use Qdrant when metadata filtering and persistent collections matter
-keep exact index independent of vector DB
+owned exact index and source catalog
+    -> owned floating-point, scoped multi-vector scorer
+    -> measured vector codec and original-vector rescoring
+    -> owned coarse candidate index only when scale requires it
 ```
+
+Persistence and permission filtering are requirements of our own interfaces; they do not require a vector database. Start with a versioned local catalog, contiguous vector arrays and page-offset tables. Ordinary filesystem/storage plumbing can support these contracts without transferring ownership of ranking, evidence resolution or the index format.
+
+Keep exact lookup independently usable when visual embeddings are unavailable. Apply document/case/access scope before candidate generation and scoring, not only when displaying results. No mandatory external database adapter is planned.
+
+The detailed stages, learning concepts, storage contract and promotion gates are in [the visual retrieval engineering plan](akriti-visual-retrieval-engineering-plan.md).
 
 ## 6. Query planner
 
@@ -205,3 +214,22 @@ flowchart TD
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## 2026-10-14 Visual Page Retrieval Extension
+
+References [62]-[66] motivate an optional multi-vector page index. Text queries can retrieve rendered pages without first trusting OCR, which is useful for tables, charts, forms, diagrams and pages with a damaged text layer. This discovers candidate pages; it does not transcribe them or establish the correctness of a number, name, character or table cell.
+
+```text
+original document and stable page render
+    -> exact/layout indexes where trustworthy extraction exists
+    -> optional page-image token vectors
+    -> scope-filtered candidate discovery
+    -> MaxSim ranking and optional original-vector rescoring
+    -> open the original page/region
+    -> owned reader/VLM and verification
+    -> aKritiDoc evidence, citation or abstention
+```
+
+Keep literal lookup available for identifiers, dates, amounts and citations. Keep original vectors if exact floating-point rescoring is required; compressed vector bytes alone are not the total index footprint. An omitted candidate cannot be recovered by rescoring. English visual-retrieval results do not establish Hindi/Hinglish quality, exact-field accuracy or CPU latency on a user's device.
+
+Build sequence: source/schema and exact-search foundations first; floating-point visual baseline after an owned or explicitly approved compatible encoder exists; compression after that baseline; scalable candidate indexing only after measured need. EXP-031 through EXP-033 remain planned and unrun.

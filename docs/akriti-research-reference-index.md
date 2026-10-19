@@ -316,3 +316,111 @@ Risks:
 - fine-grained OCR and Indic glyph recognition may still need specialized visual encoders/heads.
 - dense tables, stamps, handwriting, degraded scans, and small text require document-native evals before adoption.
 - voice/audio should not expand aKriti core scope; it should enter through a separate `Shruti` lane.
+
+## Added Engineering Reference: Cross-Layer Sparse-Attention Index Reuse
+
+[41] Cross-layer sparse-attention index reuse — long-context sparse-attention inference optimization that reuses top-k token index selections across adjacent layers, reducing indexer computation while preserving sparse attention quality. Source: <https://arxiv.org/abs/2603.12201>
+
+For aKriti this is a later `aKriti Pro` / `aKriti Vinti` runtime optimization reference:
+
+```text
+sparse-attention base model
+    -> some full-indexer layers
+    -> shared layers reuse nearest full layer indices
+    -> lower prefill/decode cost
+```
+
+Use only if:
+
+- a future aKriti Pro/Vinti base actually uses sparse attention with an explicit indexer.
+- indexer cost is measurable in long-document inference.
+- quality on aKritiDoc/Vinti evals remains stable.
+
+Do not use this to justify dumping entire case files into context. Prefer aKritiDoc indexing, exact search, page/block retrieval, case graphs, and evidence pointers first.
+
+## Added Engineering Reference: Open-Weight Multimodal Model Family for Core/Pro Benchmarking
+
+[46] Open-weight multimodal model family with encoder-free projection, quantization-aware packaging, speculative/multi-token decoding, document benchmark relevance, and mixed-size local/server deployment tiers. Source details kept in private research notes because public docs should preserve benchmark-driven model selection rather than model-name loyalty.
+
+Interpretation for aKriti:
+
+- Treat the family as a benchmark/prototype candidate for `aKriti Small`, `aKriti Core`, `aKriti Pro`, and `Kriti` orchestration.
+- Evaluate smaller variants for local LibreOffice assist and larger variants for Pro/teacher/verifier lanes.
+- Do not replace existing open-weight candidate pools until aKritiDoc fixtures prove better OCR/layout/table/chart/grounding/runtime behavior.
+- Use encoder-free multimodal projection, QAT/runtime packaging, tokenizer design, and speculative decoding as engineering ideas that must survive aKriti-owned evals.
+
+## Added Engineering References: Efficient Multimodal Candidate Classes
+
+[47] Native-resolution sparse multimodal reasoning — adaptive/native-resolution vision, sparse active language parameters, and long-context document understanding. Use as an architecture hypothesis and optional open-weight candidate only after license and owned fixture gates. Source details kept in private research notes.
+
+[48] Very-large sparse native multimodality — unified image/audio/text reasoning, hybrid local/global attention, calibrated uncertainty, variable compute, and tool-assisted visual inspection. Reject as a local model; retain only independently implementable hypotheses. Source details kept in private research notes.
+
+[49] VLM leaderboard and survey catalogs — useful for candidate discovery and benchmark taxonomy, but rankings are not promotion evidence. Every discovered candidate must be traced to its primary paper/model card and then evaluated on aKriti-owned fixtures. Source details kept in private research notes.
+
+## 2026-10-14 Added Engineering References: Compact Reading and Local Inference
+
+[50] Compact CPU sequence recognition inside a modular document pipeline, with native-text routing, layout geometry and explicit limitations. Source: <https://github.com/datalab-to/indra>. Named benchmark and model-license assessment is private; no engine or weights are adopted.
+
+[51] Extreme binary latent factorization: effective storage relative to original matrices, learned scales, recovery training and residual capacity. Source: <https://arxiv.org/html/2506.13771v5>.
+
+[52] Latent geometry alignment before binarization. Source: <https://proceedings.mlr.press/v306/lee26y.html>.
+
+[53] Sensitivity-aware variable-rank binary acoustic compression. Source: <https://www.isca-archive.org/interspeech_2026/yeo26_interspeech.html>.
+
+[54] Acoustic-transition-aware low-bit calibration. Source: <https://www.isca-archive.org/interspeech_2026/jeon26c_interspeech.html>.
+
+[55] Training-time frozen-layer streaming for resident adapters; not deployment compression or universal QAT. Source: <https://github.com/MakazhanAlpamys/Soup/blob/main/docs/performance-and-quantization.md>.
+
+[56] Depth-conditioned recurrent acoustic encoders with intermediate CTC supervision and prediction feedback. Source: <https://arxiv.org/html/2606.04678v1>.
+
+[57] Restricted latent recursion with unique boundary layers; encoder savings and fixed-loop accuracy tradeoffs. Source: <https://arxiv.org/html/2606.09357v1>.
+
+[58] Group-wise acoustic recursion respecting depth specialization. Source: <https://ojs.aaai.org/index.php/AAAI/article/view/40386>.
+
+[59] Confidence-gated early exits in acoustic recognition. Source: <https://www.isca-archive.org/interspeech_2024/yoon24_interspeech.html>.
+
+[60] Modality-aware extreme low-bit weight representation. Source: <https://arxiv.org/abs/2609.24875>.
+
+[61] Coordinated quantization and visual-token allocation. Source: <https://arxiv.org/abs/2604.17320>.
+
+Apply these through [the owned CPU/compression plan](akriti-cpu-text-reader-and-local-compression-plan.md). References are not software dependencies, label sources or product capability claims. Speech-only results do not establish document/VLM accuracy or bounded device execution.
+
+## 2026-10-14 Visual Retrieval and Vector Storage References
+
+[62] Multimodal page-token embeddings and late-interaction scoring contract. Sources: <https://huggingface.co/perplexity-ai/pplx-embed-v2-late-9b> and <https://huggingface.co/perplexity-ai/pplx-embed-v2-late-0.6b>.
+
+[63] Compressed page-image retrieval with original-vector rescoring; scoped English evaluation and storage projections. Source: <https://qdrant.tech/blog/pplx-embed-v2/>.
+
+[64] Near-optimal-distortion online vector quantization. Source: <https://arxiv.org/abs/2504.19874>.
+
+[65] Calibrated rotated quantization, asymmetric query scoring and hybrid low-bit implementation details. Source: <https://qdrant.tech/articles/turboquant-quantization/>.
+
+[66] Compressed/original-vector persistence, representation overhead and rescoring behavior. Source: <https://qdrant.tech/documentation/manage-data/quantization/>.
+
+Apply these through [the owned visual retrieval engineering plan](akriti-visual-retrieval-engineering-plan.md). No external vector store, runtime, on-disk format or teacher pipeline is adopted. Open-weight approval remains separate. Retrieval similarity is not source verification; vector compression is not model-weight compression or a total-device memory result.
+
+## 2026-10-18 Source Evidence, Selective Risk and Context References
+
+[67] Unicode text segmentation, extended grapheme clusters and declared tailoring. Source: <https://www.unicode.org/reports/tr29/>. Pin the implementation's Unicode/profile version; this is not an OCR recognizer.
+
+[68] Calibrated control of expected monotone loss. Source: <https://arxiv.org/abs/2208.02814>.
+
+[69] Selective prediction with explicit accepted-case risk and calibration assumptions. Sources: <https://arxiv.org/abs/2603.24704> and <https://arxiv.org/abs/2512.12844>.
+
+[70] Dynamic early-exit acoustic models and exit-selection training. Source: <https://arxiv.org/abs/2309.09546>. Does not establish document-model recursion or streaming-state compatibility.
+
+[71] Context selection, over-biasing and difficult negative candidates. Sources: <https://www.isca-archive.org/interspeech_2023/harding23_interspeech.html> and <https://www.isca-archive.org/interspeech_2023/bleeker23_interspeech.html>.
+
+[72] Acoustic candidate conditioning without a synthesis pipeline; compatible intermediate/self-conditioned CTC prerequisites and reference-derived keyword-inventory caveat. Source: <https://arxiv.org/html/2506.01263v1>.
+
+[73] Separate spoken/written representations and selective formatting responsibilities. Sources: <https://arxiv.org/html/2609.02901v1> and <https://arxiv.org/abs/2501.05948>.
+
+Apply through [the evidence/adaptive-compute plan](akriti-evidence-and-adaptive-compute-research-plan.md). Speech references motivate controlled cross-modality hypotheses, not document accuracy or approved implementations. No external code, labels, teacher outputs or verifier decisions are adopted; no statistical guarantee applies without its assumptions and actual calibration.
+
+## 2026-10-19 Routed CPU Readers and Conditional Specialists
+
+[74] Compact routed OCR, expanded scanned-script coverage, auxiliary language models and conditional recognition: source snapshot reviewed 2026-10-19. Sources: <https://github.com/datalab-to/indra> and <https://huggingface.co/datalab-to/indra-ocr>. Main-recognizer parameters, complete package, optional math, benchmark mode and CPU threads are separate measurements.
+
+[75] Separately licensed OCR weight artifact, including use and derivative restrictions. Source: <https://huggingface.co/datalab-to/indra-ocr/blob/main/LICENSE>. Code-license permission does not approve weights, outputs or implementation imports under aKriti's ownership policy.
+
+Apply through [the owned Indic CPU-reader supplement](akriti-indic-cpu-reader-and-selective-processing-plan.md), EXP-038 through EXP-041 and the existing CPU/reread controls. References are not dependencies, teachers, label sources or verifiers. Expanded vendor coverage does not establish our Indic accuracy or handwritten-document capability.

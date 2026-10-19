@@ -272,6 +272,8 @@ Targets:
 - LibreOffice Impress
 - exported ODT/DOCX/HTML/Markdown
 
+All LibreOffice edit requests must be produced as typed action patches with source references and an explicit preview approval token. See `docs/akriti-kriti-libreoffice-action-harness.md`.
+
 ### `GET /v1/models`
 
 List installed model tiers and runtimes.
