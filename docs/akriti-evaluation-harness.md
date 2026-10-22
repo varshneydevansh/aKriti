@@ -233,3 +233,24 @@ See `docs/akriti-fixture-corpus-and-experiment-cards.md` for the concrete EXP-00
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## 15. Shared Decision and Visual-Head Evaluation, 2026-10-22
+
+Contract: [Shared Local Decision v0](akriti-shared-decision-contract-v0.md). Cards EXP-046 through EXP-049; sources [76]-[79]. Planned and unrun.
+
+| Metric | Definition / required distinction |
+|---|---|
+| Selective error | Wrong automatically accepted evaluable items / accepted evaluable items; undefined if none accepted |
+| Coverage | Automatically accepted evaluable items / all eligible evaluable items |
+| Critical risk | Same accepted-case calculation for independently labelled critical fields/marks, with counts and intervals |
+| Confident errors | Distinguish wrong-high-confidence/all-items from wrong/high-confidence-items |
+| Sufficiency/coverage | Separate unreadable or wrong/absent source from a readable answer missing from choices |
+| Calibration | Brier/ECE and reliability per task/script/source/precision/candidate policy; not universal certainty |
+| Edit harm | Correct readings changed incorrectly, wrong values/geometry and derived meaning drift |
+| Complete cost | Features/candidates/head, render/I/O, cold/cached models, reread/merge, resident/peak memory and review effort |
+
+Use document/source-family-separated fit, calibration and sealed test groups; derived crops stay together. Predeclare budgets, thresholds, tolerances, sample limits and uncertainty methods. Small pilot counts or low average ECE do not certify rare critical errors.
+
+Stress missing/illegible/contradictory evidence, source/crop revision, omitted true candidates, choice order/distractors/paraphrases, ordinal-scale use, unfamiliar scripts/fonts/scanners, precision changes, cancellation and exhausted budgets. Injected document instructions remain source data.
+
+Compare deterministic/logistic/MLP controls, strongest single visual verifier, optional pack and only later shared/general models. Measure error correlation; roles alone do not prove independence. Acoustic scores belong to Shruti; workflow/action correctness belongs to consumers. No score removes mandatory human review or grants permissions.

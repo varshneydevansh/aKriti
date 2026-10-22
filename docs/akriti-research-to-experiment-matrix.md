@@ -32,7 +32,7 @@ Hard boundaries:
 | Boundary | Meaning |
 |---|---|
 | VLM-first | OCR is one capability inside document understanding, not the product identity. |
-| Owned product | External OCR/VLM systems can teach, benchmark, or inspire; they cannot be the shipped product dependency. |
+| Owned product | External OCR/VLM systems are engineering references, not adopted implementations, outputs, label sources or verifiers. Compatible open-weight initialization requires separate approval and recorded lineage. |
 | Local-first | Any adopted technique must have a path to CPU, Apple Silicon, RTX 2060-class, WebGPU, or offline workstation deployment. |
 | Verification-first | Improvements are not accepted unless provenance, confidence, and hallucination/error checks survive. |
 | Vinti boundary | Vinti is a long-term separate downstream court/legal project based on aKriti, not aKriti v1 scope. |
@@ -409,6 +409,19 @@ Plan: [Owned Indic CPU Reader and Selective Processing](akriti-indic-cpu-reader-
 
 All cards remain planned and unrun. Independent source labels, source transforms and script-aware span fixtures come first. No outside OCR code, preprocessing, dictionary, weights, outputs, labels or verifier is adopted. Package size and 32-core publisher throughput do not establish aKriti laptop performance. Downloads, training and evaluation runs require separate authorization and declared budgets.
 
+## 2026-10-20 Added Recovery, Routing and Colab Cards
+
+Detailed controls and source caveats: [Selective Refinement and Recoverable Routing](akriti-selective-refinement-and-recoverable-routing-research-plan.md). Training/recovery mechanics: [Resumable Colab Experiments](akriti-colab-resumable-experiment-workflow.md).
+
+| Experiment | Isolated question | Promotion evidence |
+|---|---|---|
+| EXP-042-candidate-coverage-recovery | Does one bounded source reread recover correct readings absent from first-pass candidates? | Candidate coverage, critical errors, non-escalated misses, false corrections and complete gate/render/read cost; compare frozen reranking separately |
+| EXP-043-recoverable-visual-routing | Does deferral/re-entry beat a fixed pruning control for a suitable fixed VLM? | Fine-text/structural/geometry fidelity and actual memory/latency, including deferred state and gather/scatter; no inference from VQA alone |
+| EXP-044-multimodal-diffusion-decoding | Does a declared masked/diffusion condition justify its cost over the VLM/simpler reread controls? | Source-linked values, omissions/inventions, structured validity, steps, training exposure, memory and tail latency |
+| EXP-045-colab-resume-mechanics | Can an owned tiny loop recover from interruption and incomplete durable publication? | Complete-state/sample/update continuity, fallback, parent lineage and budget accounting; hardware-change branches labelled separately |
+
+All four cards are planned and unrun. Diffusion, routing schedule, neural gates and decoder families remain optional experiments, not canonical architecture. The CPU reader is not a prerequisite for all VLM work. Colab is an optional training environment, not proof of local device performance or permission to upload private data or start paid jobs.
+
 The existing open-weight multimodal card follows below unchanged.
 
 Candidate-role constraints:
@@ -442,3 +455,18 @@ General leaderboard rank is not an experiment input. Every candidate receives id
 - Stop condition: model cannot produce stable aKritiDoc-like structured output, runtime cost is too high for target tier, license/provenance is incompatible, or confidence/review behavior is worse than baseline.
 - Promotion gate: improves quality or runtime enough to justify a model-manifest candidate entry.
 - Decision: pending.
+
+## 2026-10-22 Shared Decision and Separate Visual Cards
+
+[Shared contract v0](akriti-shared-decision-contract-v0.md), [detailed evidence plan](akriti-evidence-and-adaptive-compute-research-plan.md), references [76]-[89].
+
+| Card | Isolated question / prerequisite | Promotion evidence |
+|---|---|---|
+| EXP-046-decision-contract-mechanics | Source/schema fixtures; request/observation/policy mechanics | Explicit invalid/stale/unsupported/unavailable outcomes, option/evidence identity, unchanged action authority |
+| EXP-047-owned-visual-decision-head | Fixed owned visual candidates; deterministic versus small learned head | Critical source support, unreadability, candidate omissions, coverage and full local cost |
+| EXP-048-decision-calibration-stress | Frozen head/candidate policy; separate fit/calibration/test | Script/source/precision risk/coverage, no evidence, choice-list stress, intervals and review burden |
+| EXP-049-general-decision-transfer | Specialist controls first; optional general/shared model | Held-out task-family transfer, negative transfer, scoped calibration and full prefill/cached/cold device cost |
+
+All are planned and unrun. Shared weights, arbitrary questions, ordinal heads, distillation and browser packaging are experimental. Acoustic heads are independently evaluated in Shruti; no universal decision model or full CPU OCR stack blocks all VLM work.
+
+Before authorized execution declare data rights, grouped splits, labels/candidates, one changed variable, device/sample/time budgets, risk denominators and stop criteria. ECE/percentage targets are provisional, not approved guarantees. No run, training, download or artifact approval is delivered.

@@ -60,7 +60,7 @@ Stamps, seals and handwriting are separate evidence types. Detecting a stamp reg
 
 Start with deterministic evidence checks and explicit limits. Consider a compact classifier only after there is a labelled failure taxonomy and a controlled comparison showing value.
 
-Proposed decisions include `keep_candidate`, `reread_region`, `needs_text_review`, `needs_region_review`, `needs_precision_review`, `needs_human_review` and `abstain`. The gate must support unknown/defer outcomes, not only yes/no.
+Product-policy outcomes include `keep_candidate`, `reread_region`, `needs_text_review`, `needs_region_review`, `needs_precision_review`, `needs_human_review` and `abstain`. A modality-specific verifier first emits a separate support/uncertainty observation. Unknown/defer is supported; these actions are not a universal shared-model label set.
 
 Inputs can include candidate disagreement, valid geometry, native-text validity, original-versus-derived relationships, type/units consistency, source completeness, critical-field flags, calibrated score features and remaining compute budget. The gate must not fabricate a character/value that no reader proposed with source evidence.
 
@@ -155,3 +155,38 @@ Track user-facing measures such as time to correct a disputed amount, number of 
 Shruti's partner plan is `../../Shruti/docs/INDIC_EVIDENCE_AND_ADAPTIVE_COMPUTE_RESEARCH_PLAN.md`. Shared tooling may later reuse a decision envelope containing source references, alternatives, dependency lineage, calibration/policy IDs, budgets and reason codes. The audio and document contracts remain distinct.
 
 Speech methods in [71]-[73] are cross-modality research references, not validated OCR implementations. No common neural backbone, automatic cross-modal truth vote, external engine dependency or immediate full-duplex feature is introduced.
+
+## 2026-10-20 Clarification: Recoverable Evidence and Experimental Compute
+
+Read [Selective Refinement and Recoverable Routing](akriti-selective-refinement-and-recoverable-routing-research-plan.md) and [Resumable Colab Experiments](akriti-colab-resumable-experiment-workflow.md). These supplements refine experiment sequencing, not the locked architecture or canonical schema.
+
+- Source/schema mechanics and independent fixtures support parallel document-VLM and complementary CPU-reader controls. A complete OCR engine is not required before every VLM experiment.
+- Keep fixed-candidate contextual ranking separate from source rereading that can generate a previously missing correct candidate. EXP-042 measures candidate coverage and recovery; an oracle candidate choice is diagnostic, not a deployed result.
+- Audit non-escalated as well as escalated regions. Report confident critical errors, false corrections, risk/coverage, review burden and end-to-end cost.
+- Recoverable visual-token deferral, EXP-043, is optional and architecture/schedule dependent. Include deferred representations, original positions, source I/O and gather/scatter in resource accounting. Preserve full-token controls and fine-mark/critical-value tests.
+- Multimodal discrete-diffusion decoding, EXP-044, is separate from non-destructive image restoration. Neither fluent completion nor enhanced-looking pixels may replace the original source or settle ambiguity by themselves.
+- Colab is optional training compute, not a GPU entitlement, runtime dependency or target-device result. EXP-045 specifies interruption/publication recovery only after an owned toy loop and explicit execution budget exist.
+- Evidence retention is permissioned and bounded where appropriate. Preserving provenance does not require indefinite cloud copies or authorize training on private documents/corrections.
+
+All new cards are planned and unrun. No schema migration, artifact approval, model download, external engine adoption, training, validation or benchmark is delivered by this supplement.
+
+## 2026-10-22 Shared Contract and Separate Visual Research
+
+Read [Shared Local Decision v0](akriti-shared-decision-contract-v0.md), the evaluation supplement and references [76]-[89]. Shruti carries a matching standalone snapshot and its twelve-project dictation research note.
+
+Share requests/observations/policy semantics, evidence/version bookkeeping, failure vocabulary and calibration/evaluation tools. Original-pixel/geometry verification and acoustic/timing verification stay separate. Start with deterministic/logistic/small-MLP heads using owned representations.
+
+Task-specific candidate support is not general zero/few-shot question answering. A common API creates neither common competence nor universal calibration. No shared backbone, 20-100M model, distillation or external teacher is selected.
+
+| Card | Prerequisite and isolated comparison | Promotion evidence |
+|---|---|---|
+| EXP-046-decision-contract-mechanics | Existing source/schema fixtures; separate request/observation/policy fixtures | Invalid/stale/unsupported/unavailable states, stable option/evidence identities and unchanged authority |
+| EXP-047-owned-visual-decision-head | Fixed owned visual reader/candidates and independent labels; deterministic versus simple head | Critical source support, unreadability and missing-candidate discrimination at useful coverage and full cost |
+| EXP-048-decision-calibration-stress | Frozen head/candidate policy; disjoint fit/calibration/test | Script/source/precision risk/coverage, absent evidence, option-list robustness, intervals and review load |
+| EXP-049-general-decision-transfer | Useful specialist controls first; optional shared/general model versus per-task heads | Held-out task-family transfer without unacceptable per-domain regression; full prefill/cached/cold memory and latency |
+
+Add missing/unreadable/wrong-region sources, misleading context, candidate omission/reordering/distractors, precision and language shifts. A fallback class does not create reliable abstention automatically. An ordinal mean is not automatically a cardinal risk score.
+
+Keep reading, typed interpretation, presentation and action separate. Selective correction, contradictory-context training and low-bit methods have prior art. Proposed percentage/ECE targets are hypotheses, not feasibility evidence or guarantees.
+
+All cards are planned and unrun. A working document VLM or complementary CPU reader may supply the visual control; a complete OCR stack is not a gate for all VLM experiments. Optional Colab work retains permissions, actual hardware, budgets and full-state recovery; local deployment needs independent device evidence. No run, migration, model/artifact approval, download or training is delivered.

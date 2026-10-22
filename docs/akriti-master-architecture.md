@@ -1,5 +1,7 @@
 # aKriti Master Architecture
 
+> 2026-10-22 clarification: [Shared Local Decision v0](akriti-shared-decision-contract-v0.md) shares observations and policy semantics, not a universal model. aKriti visual and Shruti acoustic verification remain independent; general decision-model research is optional and unmeasured.
+
 **Status:** Locked planning spec  
 **Date:** 2026-05-19  
 **Primary sources:** `LOCAL_DOCS/codex_chat1.md`, `LOCAL_DOCS/codex_chat2(main).md`, `LOCAL_DOCS/AKRITI_CONTEXT_HANDOFF_v1.0.md`, `LOCAL_DOCS/agent-research-brief-march-2026.md`, `LOCAL_DOCS/deep-research-report*.md`, `LOCAL_DOCS/research-credits.md`, `LOCAL_DOCS/vlmrun-orion-whitepaper-latest.pdf`
@@ -26,7 +28,7 @@ The product is not a wrapper around external OCR/VLM systems. External projects 
 ```text
 open weights
 open papers
-open-source training code
+independently implemented training code and published training ideas
 public datasets with compatible licenses
 architecture ideas from public projects
 temporary local bake-offs during R&D
@@ -391,14 +393,17 @@ This avoids vector-RAG-only failure on names, dates, statutes, amounts, citation
 Use evidence generators and deterministic validators, not blind trust.
 
 ```text
-model proposes
-validators check
-provenance is shown
+model proposes evidence-linked candidates
+owned visual verifier records support, uncertainty and failures
+product policy checks source revision, permissions and mandatory review
+provenance and alternatives are shown
 user approves high-impact edits
-logs become training data
+separately consented eligible corrections may enter offline curation
 ```
 
-Evidence generators are internal aKriti passes/modules in final product. External OCR/VLM projects may be used only during R&D for comparison or teacher data.
+Evidence generators and verifiers are aKriti-owned. External projects are engineering references, not teacher-data or label sources. Open weights need separate approval and provenance. Logs do not automatically become training data.
+
+The shared observation envelope does not replace aKritiDoc or action contracts. Textual agreement cannot verify a visual stroke; aKriti does not verify speech. Share calibration tooling, not one fitted correctness interpretation across tasks, languages, sources or precisions.
 
 ## 17. Final architecture lock
 

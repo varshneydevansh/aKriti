@@ -1,6 +1,6 @@
 # aKriti Decision Log
 
-**Status:** Locked decisions as of 2026-05-20
+**Status:** Locked boundaries with dated planning/research addenda through 2026-10-22
 
 ## 1. Locked decisions
 
@@ -469,3 +469,19 @@ Add page-image multi-vector discovery as an optional lane beside exact/source-st
 Build source-linked exact retrieval and a float scorer first. Require an owned or separately approved compatible encoder for visual quality; test vector compression only against a fixed float baseline; introduce coarse candidate indexing only after a measured scaling problem. Keep original-vector storage/I/O and local query-model memory in the budget.
 
 Preserve aKritiDoc, the general-purpose VLM identity, explicit review and the downstream LibreOffice/Vinti boundaries. No benchmark, novel-method claim, model approval or runtime capability is created by this documentation decision.
+
+## 2026-10-22 Decision Note: Shared Contract, Separate Evidence and Authority
+
+Contract: [Shared Local Decision v0](akriti-shared-decision-contract-v0.md). Plan: [Evidence and Adaptive Compute](akriti-evidence-and-adaptive-compute-research-plan.md). References [76]-[89] and EXP-046 through EXP-049 are planning/research entries, not implemented features.
+
+Adopt this design separation: an owned modality verifier emits a typed observation; product policy decides acceptance, bounded recovery, abstention or review. Source revision, ordered candidate-set identity, evidence availability, dependency lineage and calibration scope travel with the observation. A score is not a permission.
+
+Keep aKriti original-pixel/crop/geometry verification separate from Shruti audio/feature/timing verification. Share bookkeeping, evaluation and calibration tooling, not necessarily weights or fitted calibration parameters. Vinti remains downstream; OCR confidence does not establish workflow readiness. FilterTube's deterministic rules retain authority.
+
+Begin with independent fixtures, deterministic checks and small task-specific heads around working controls. A general Jev-like question model, common backbone, ordinal scoring, 20-100M size target or distilled student remains experimental. No external engine, SDK, teacher output, generated labels or verifier is approved; open weights need separate approval and lineage.
+
+Measure missing-evidence failures, option-set sensitivity, critical accepted errors, coverage and complete local cost. Different roles still may share errors; 3/5/7 is an optional budget, never independence or proof. Proposed ECE/percentage targets are not guarantees. Mandatory review and immutable corrections remain.
+
+Shruti stays ASR first: Zero unseen-audio evaluation -> fixed bounded Tiny -> profiling/INT8 -> optional selective repair. TTS/full-duplex/general decisions must not block it. Document-VLM and complementary CPU-reader controls may proceed in parallel; no universal model or complete OCR stack blocks all VLM work.
+
+Documentation only: no execution, migration, model selection, benchmark, artifact approval or training.

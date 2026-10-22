@@ -1,5 +1,7 @@
 # aKriti Confidence, Voting, and Human Review
 
+> Updated 2026-10-22: apply [Shared Local Decision v0](akriti-shared-decision-contract-v0.md). Numerical objects below are legacy illustrative scores, not automatically calibrated probabilities. Observations, policy actions and human confirmation are distinct; no executable schema migration is claimed.
+
 **Status:** Draft implementation spec  
 **Date:** 2026-05-20  
 **Purpose:** Define how aKriti handles uncertain/confusing regions through confidence scoring, multi-pass voting, disagreement detection, and user-visible review.
@@ -56,7 +58,7 @@ Confidence should be attached at multiple levels:
 }
 ```
 
-Confidence is not a replacement for provenance. It is a triage signal.
+Confidence is not a replacement for provenance. It is a triage signal. The illustrative `overall` value is not a universal correctness probability; the proposed adapter records score kind, candidate/task identity, evidence availability and calibration scope.
 
 ## 4. Voting / multi-pass reading
 
@@ -218,38 +220,36 @@ With consent, they can become:
 ## 11. ASCII flow
 
 ```text
-parse result
+parse result and original source
     |
     v
-confidence check
+validity / revision / visual-support observation
     |
-    +--> high confidence -> normal output
+    v
+product policy: risk, permissions, scope and budget
     |
-    +--> low/conflict -> multi-pass voting
-                          |
-                          v
-                    disagreement detector
-                          |
-                          v
-                    review queue / abstain
-                          |
-                          v
-                    user correction if needed
+    +--> supported + eligible -> candidate output, not edit authority
+    |
+    +--> uncertain -> bounded owned reread or complementary check
+    |                     |
+    +---------------------+--> review / abstain if unresolved
+                                    |
+                                    v
+                             optional human correction
 ```
 
 ## 12. Mermaid flow
 
 ```mermaid
 flowchart TD
-    A["Parse result"] --> B["Confidence check"]
-    B -->|"high confidence"| C["Normal output"]
-    B -->|"low/conflict"| D["Multi-pass voting"]
-    D --> E["Disagreement detector"]
-    E --> F{"High-impact or unresolved?"}
-    F -->|"yes"| G["Review queue"]
-    F -->|"no"| H["Accept with warning"]
-    G --> I["User correction"]
-    I --> J["Optional training event with consent"]
+    A["Parse result and original source"] --> B["Typed visual support observation"]
+    B --> C["Policy: revision, risk, scope and permissions"]
+    C -->|"eligible supported reading"| D["Candidate output; separate edit approval"]
+    C -->|"extra evidence justified"| E["Bounded owned reread"]
+    E --> B
+    C -->|"unresolved or mandatory review"| F["Review or abstain"]
+    F --> G["Optional human correction"]
+    G --> H["Separate consent and eligibility before offline curation"]
 ```
 
 
@@ -275,7 +275,7 @@ bounded source-grounded candidate readings
         v
 disagreement detector
         |
-        +--> enough agreement -> accept or accept_with_warning
+        +--> source support + policy gates -> candidate output or mandatory review
         |
         +--> disagreement -> targeted reread / restoration / critique
                                   |
@@ -470,3 +470,19 @@ Use source-linked candidate, typed-value and presentation views separately. Pres
 Begin with deterministic gates and one targeted owned reread, not a mandatory model parliament. Evaluate false acceptance, review load, risk/coverage and full runtime cost. Extra model residency, crop preparation, cache/state replay and cold loading remain costs even when rereads are rare.
 
 No source confidence, calibrated score or majority vote changes Kriti/LibreOffice/Vinti action authority. Mandatory human-review policy and the external-artifact boundary remain unchanged.
+
+## 21. Typed Observations and Scoped Calibration, 2026-10-22
+
+Use [the shared draft](akriti-shared-decision-contract-v0.md), references [76]-[79], and EXP-046 through EXP-049. This is planned interface/evaluation work, not an installed verifier.
+
+- An owned visual head inspects original-pixel/crop evidence. Source presence, readability, candidate correctness, geometry and action safety are distinct.
+- Preserve none-of-candidates versus insufficient-evidence outcomes. A text-only judge cannot settle a missing matra, stamp detail or signature question.
+- Record ordered option IDs/hash and task revision. Test omitted true candidates, distractors and reordering; probabilities are option-conditional.
+- Distinguish raw scores, normalized distributions, scoped calibration and human confirmation. A learned sufficiency/abstention head is fallible and needs labels.
+- Share calibration code, not universal temperatures across scripts, sources, tasks or precisions. No score bypasses mandatory review.
+- Report accepted-case error with coverage, critical subsets, counts, intervals, review burden and complete costs; ECE alone can hide rare harm.
+- Test absent/wrong/stale crops, unreadability, contradictory context, restored-only detail and precision shift. Audit confidently wrong non-escalated cases.
+- Different specialists still may have correlated errors. Compare a pack with its strongest reader at matched budget; no fixed voter quota.
+- Resolve support references from actual artifacts. Never invent citations or claim deleted evidence was reread.
+
+General natural-language decisions and shared weights stay experimental. An owned task-specific visual head is not a claim of general zero-shot reasoning.

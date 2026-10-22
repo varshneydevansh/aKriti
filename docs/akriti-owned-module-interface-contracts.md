@@ -369,3 +369,15 @@ See `docs/akriti-contract-schema-implementation-spec.md` for the concrete module
 ## Research References
 
 This doc is connected to the numbered research bibliography in `docs/akriti-research-reference-index.md`. Those references are engineering anchors for aKriti-owned implementation; they are not product dependencies. Only open weights may enter model lineage, and only with manifest provenance.
+
+## Shared decision observation adapter, 2026-10-22
+
+[Shared Local Decision v0](akriti-shared-decision-contract-v0.md) is a draft companion envelope, not a replacement for module responses or aKritiDoc patches.
+
+A future versioned adapter may attach observation references under verification/history. Bind original evidence/revisions, ordered candidates, task, score kind, calibration scope, model/runtime lineage and explicit unsupported/insufficient/stale/failure outcomes. No existing schema is silently migrated.
+
+aKriti uses AKR-VISUAL-v0; Shruti independently uses SHR-ACOUSTIC-v0. Do not expose acoustic tensors as document fields or infer source support from fluent text. Shared utilities do not require common encoders, weights or calibration parameters.
+
+Separate product policy checks current permissions, risk, source revision and budget before a patch proposal. A high probability does not merge an edit. Cancelled, stale or unavailable evidence cannot produce a success-shaped patch.
+
+EXP-046 through EXP-049 plan mechanics, visual-head, calibration and later general/shared comparisons. Arbitrary-question and ordinal capabilities remain experimental; no endpoint or validator is implemented here.

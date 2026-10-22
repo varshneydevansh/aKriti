@@ -424,3 +424,54 @@ Apply through [the evidence/adaptive-compute plan](akriti-evidence-and-adaptive-
 [75] Separately licensed OCR weight artifact, including use and derivative restrictions. Source: <https://huggingface.co/datalab-to/indra-ocr/blob/main/LICENSE>. Code-license permission does not approve weights, outputs or implementation imports under aKriti's ownership policy.
 
 Apply through [the owned Indic CPU-reader supplement](akriti-indic-cpu-reader-and-selective-processing-plan.md), EXP-038 through EXP-041 and the existing CPU/reread controls. References are not dependencies, teachers, label sources or verifiers. Expanded vendor coverage does not establish our Indic accuracy or handwritten-document capability.
+
+## 2026-10-20 Source Addendum: Selective Refinement and Colab
+
+These named source anchors supplement the existing numbered bibliography without renumbering it. Detailed claim boundaries, classifications and experimental gates are in [the selective-refinement research plan](akriti-selective-refinement-and-recoverable-routing-research-plan.md); recovery mechanics are in [the Colab workflow](akriti-colab-resumable-experiment-workflow.md). Sources were checked for the 2026-10-20 assessment, not executed or adopted.
+
+| Anchor | Primary source | Disposition and limit |
+|---|---|---|
+| COLAB-FAQ-20261020 | [Google Colab FAQ](https://research.google.com/colaboratory/faq.html) | Optional compute/I/O reference; GPU availability, quotas and runtime are variable |
+| MERCURY3-20261020 | [Diffusion at Scale: Introducing Mercury 3](https://www.inceptionlabs.ai/blog/introducing-mercury-3) | Watch vendor text-model results; not a local OCR/VLM or ASR artifact approval |
+| MERCURY-VOICE-BOUNDARY | [Inception realtime voice cookbook](https://docs.inceptionlabs.ai/cookbooks/realtime-voice-assistant) | Separate external STT/TTS around a text model; no provider integration adopted |
+| DLLM-ASR-2601 | [dLLM-ASR, 2601.17902](https://arxiv.org/abs/2601.17902) | Prior-guided ASR diffusion; large LLM-ASR comparison, not a tiny CPU speed guarantee |
+| MDM-ASR-2602 | [MDM-ASR, 2602.18952](https://arxiv.org/abs/2602.18952) | Masked decoding quality/cost precedent; CTC speed and hardware comparisons remain separate |
+| LAVIDA-2505 | [LaViDa, 2505.16839](https://arxiv.org/abs/2505.16839) | Future multimodal diffusion experiment, not selected decoder architecture |
+| REROUTE-2606 | [Reroute, Don't Remove, 2606.12412](https://arxiv.org/abs/2606.12412) | Recoverable visual deferral; model/schedule caveats, actual speed and Indic fidelity require our own measurements |
+| DEVANAGARI-STRESS-2606 | [Can OCR-VLMs Read Devanagari?, 2606.29213](https://arxiv.org/abs/2606.29213) | Real-scan/structural-error evaluation principle; no outside outputs or labels imported |
+
+Aurora topology, intermediate CTC, BBPE16, Vividh-ASR and one-bit speech references are documented in Shruti's selective-refinement research plan. Their findings do not establish document accuracy or select an aKriti model. Do not preserve inaccessible chat citation tokens as the bibliography; cite the primary source and its claim boundary.
+
+## 2026-10-22 Typed Decision and Dictation Source Addendum
+
+Static sources from the 2026-10-22 assessment, not runs or adopted artifacts. Published results remain scoped to their data/hardware. Refresh mutable versions/licences before an approved experiment.
+
+[76] Prefill-only typed heads, state/question isolation and scoped evaluation. Source: <https://github.com/jaredpalmer/kev/blob/main/docs/model-cards/kev-0.8b.md>. English/OOD limits and complete model/process cost matter; no weights, SDK or teacher use approved.
+
+[77] Confidence versus missing knowledge/evidence. Source: <https://arxiv.org/abs/2610.01006>. A new sufficiency question is still fallible.
+
+[78] Choice probabilities and irrelevant alternatives. Source: <https://arxiv.org/abs/2610.16655>. Candidate lists matter; independent yes/no is not automatically a better fix.
+
+[79] Ordinal scale-utilization bias. Source: <https://arxiv.org/abs/2609.38827>. Evaluate label use, accuracy and calibration separately.
+
+[80] Beam-score/rank confidence. Source: <https://arxiv.org/abs/2607.29299>. Include acoustic candidate-generation cost and domain calibration.
+
+[81] Causal streaming supervision and contradictory-context training. Source: <https://arxiv.org/abs/2609.04225>. English prototype/recipe, not novel Shruti work or approved training material.
+
+[82] Stateful streaming CTC word spotting. Source: <https://arxiv.org/abs/2605.18222>. Model prerequisites and false insertions remain gates.
+
+[83] Selective bounded lookahead. Source: <https://arxiv.org/abs/2609.37611>. Attention-based result, not established CTC/Indic/visual transfer.
+
+[84] Phonetic selective correction. Source: <https://arxiv.org/abs/2506.11064>. Existing prior art, not automatic source proof.
+
+[85] Indic dialect/recording-condition evaluation. Sources: <https://arxiv.org/abs/2601.04373> and <https://arxiv.org/abs/2605.13087>. Dataset eligibility and named language slices remain separate.
+
+[86] Low-bit acoustic co-training/stochastic precision. Source: <https://arxiv.org/abs/2505.21245>. Not proof of packed execution, activation savings or Hindi fidelity.
+
+[87] Recognition content versus commit timing. Source: <https://arxiv.org/abs/2609.08672>. Later acoustic training research.
+
+[88] Future-speech timing. Source: <https://arxiv.org/abs/2606.18094>. Later interaction, not a dictation prerequisite.
+
+[89] Noise-aware low-precision distillation and package/memory reporting. Source: <https://fluidvoice.com/labs/fluid-speech-mini>. Publisher English measurements, not ours or permission to import teacher outputs.
+
+Use [76]-[79] through EXP-046 through EXP-049. [80]-[89] mainly inform Shruti's acoustic lane; speech results do not establish OCR, stamp, glyph or workflow reliability. This bibliography approves no artifact, architecture, performance or risk guarantee.

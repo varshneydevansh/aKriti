@@ -547,3 +547,43 @@ Update the reference assessment: earlier limited-script, no-handwriting and smal
 | Conditional math | Same available owned specialist with routing ablations; count numeric-table harm and added memory/latency |
 
 EXP-038 through EXP-041 are planned and unrun. No external engine, weights, dictionaries, output-derived labels or verifier is adopted. The first CPU target remains printed Devanagari/Latin with source-linked review, not an unmeasured universal-language or handwriting claim.
+
+## 2026-10-20 Corrected Sequence, Experimental Refinement and Resumable Colab
+
+Plans: [Selective Refinement and Recoverable Routing](akriti-selective-refinement-and-recoverable-routing-research-plan.md), [Resumable Colab Experiments](akriti-colab-resumable-experiment-workflow.md). Source anchors are in the dated reference-index addendum. New cards EXP-042 through EXP-045 are planned and unrun.
+
+| Item | Classification | Decision boundary |
+|---|---|---|
+| Shared source/geometry fixtures and realistic Indic error categories | Adopt planning/evaluation principles now | No outside OCR labels; no language-coverage claim from a small mechanics set |
+| Candidate-coverage diagnostics and bounded source recovery | Prototype after fixed reader controls | Fixed-candidate ranking cannot recover an absent true reading; count all gate/reread costs |
+| Recoverable visual-token routing | Later controlled experiment | Some reported architectures/schedules regress; do not promote from theoretical FLOPs or object grounding alone |
+| Multimodal diffusion decoding | Later controlled experiment | Distinct from image restoration and from evidence; compare simpler rereads first |
+| Mercury 3 | Watch | Vendor GPU text-model signal, not a selected local reader, ASR or hosted dependency |
+| Colab | Optional execution environment | Actual capacity, explicit budgets, cloud data eligibility and complete-state recovery required |
+
+Current dependency order is source/aKritiDoc mechanics and fixtures, then document-VLM and complementary CPU-reader baselines alongside each other, then bounded evidence recovery/calibrated review, then isolated runtime or routing comparisons. A full OCR implementation must not become a gate blocking all VLM research.
+
+The Colab workflow distinguishes complete compatible continuation, parent-linked hardware-change continuation and weights-only initialization. It specifies optimizer-boundary snapshots, sampler/RNG progress, immutable generations, completion/hash validation and fallback; none of those mechanisms has been implemented or tested by this entry. Local-device memory/latency and LibreOffice behavior remain separate promotion evidence.
+
+Private documents and corrections are not cloud-training material by default. External model implementations, processors, engines, generated labels, teacher outputs and verifiers remain excluded; any open-weight initialization needs separate approval and lineage. No run, download, model promotion, novelty claim or measured advantage is delivered here.
+
+## 2026-10-22 Typed Decision Reliability and Modality Boundaries
+
+Plan: [Evidence and Adaptive Compute](akriti-evidence-and-adaptive-compute-research-plan.md). Draft: [Shared Local Decision v0](akriti-shared-decision-contract-v0.md). References [76]-[89]. Detailed application notes live in Shruti's `docs/LOCAL_DICTATION_AND_TYPED_DECISION_RESEARCH.md`, not an aKriti dependency list.
+
+| Input | Disposition | Owned interpretation |
+|---|---|---|
+| Prefill-only typed heads [76] | Reference; general model experimental | Contract/evaluation first, not external engine or universal weights |
+| Missing-evidence audit [77] | Adopt evaluation principle | Confidence does not establish evidence sufficiency |
+| Choice-set dependence [78] | Adopt evaluation principle | Version ordered options; test distractors/omissions |
+| Ordinal-scale compression [79] | Watch/prototype | Validate scale use; an expected rating is not calibrated risk |
+| Acoustic confidence/context/repair [80]-[84] | Shruti prototypes; visual hypotheses only | Source evidence and full cost, not fluency or imported teacher labels |
+| Indic conditions [85] | Benchmark design | Named language/recording slices, independent grouped labels |
+| Low-bit and commit/turn work [86]-[88] | Later experiments | No packed-device, streaming or OCR gain implied |
+| Noise-aware precision training [89] | Prior-art reference | QAT/noisy-student combinations are not automatically novel |
+
+EXP-046 through EXP-049 are planned and unrun. Keep acoustic and visual heads independent and calibration scope explicit. A general Jev-like question model cannot block document foundations or ASR.
+
+Correct the comparison taxonomy: preview, native causal recognition, streaming upload and final-file recognition differ; artifact/resident/process memory differ; public code, code licence and weight licence differ. Static source review does not prove privacy, platform parity or roadmap delivery.
+
+No app, model implementation, normalizer, aligner, SDK, labels, teacher output or verifier is adopted. Any open weights need separate approval/lineage. Public architecture choices establish neither novelty nor a durable moat.

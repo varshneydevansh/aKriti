@@ -7,6 +7,8 @@
 
 ## 1. Decision and scope
 
+Planning clarification, 2026-10-20: this is the complementary CPU track, not a dependency that blocks every general document-VLM baseline. See [the corrected parallel-track sequence and experimental cards](akriti-selective-refinement-and-recoverable-routing-research-plan.md) and [the resumable local/Colab workflow](akriti-colab-resumable-experiment-workflow.md). Colab can train a candidate; promotion as a CPU reader still requires actual target-device measurements.
+
 Implement the useful routing, compact recognition and selective-processing ideas ourselves. Do not use the external OCR project's code, models, recognizer dictionaries, preprocessing, runtime, labels, outputs or verifier decisions. Ordinary numerical, image, font-rendering and tensor-execution primitives remain implementation plumbing, not an outsourced reader.
 
 Any future license-compatible open-weight initialization requires separate approval and a manifest; none is selected here. The first research reader is an owned baseline, not a renamed outside engine or distilled copy of its outputs.
@@ -129,6 +131,8 @@ Do not derive peak RAM from parameter count. Infrequently used resident speciali
 Native CPU integration is first. Browser CPU/WASM or optional GPU execution is later and needs its own operator, memory, threading and cancellation measurements. WebGPU is not the CPU path.
 
 ## 10. Chronological implementation plan
+
+These phases order the CPU capability only. Shared source/fixture mechanics and the document-VLM evaluation lane may progress alongside it. In C3/C4, distinguish reranking an unchanged candidate set from rereading additional original pixels to recover a missing candidate; the latter is EXP-042, not evidence that a contextual scorer recovered unseen visual information.
 
 | Phase | Work and concept | Exit gate |
 |---|---|---|

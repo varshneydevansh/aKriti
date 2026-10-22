@@ -1,5 +1,9 @@
 # Plan: aKriti VLM Model Family and Platform
 
+> Current decision overlay, 2026-10-22: [Shared Local Decision v0](akriti-shared-decision-contract-v0.md) and the [evidence plan](akriti-evidence-and-adaptive-compute-research-plan.md). Contract mechanics accompany existing foundations; visual and acoustic verifiers remain separate. Task-specific controls precede optional general/shared decision-model research. All new cards are planned and unrun.
+
+> Current planning overlay, 2026-10-20: [selective refinement and experimental routing](akriti-selective-refinement-and-recoverable-routing-research-plan.md) and [resumable Colab research](akriti-colab-resumable-experiment-workflow.md). Source/schema mechanics come first; document-VLM and CPU-reader controls may proceed alongside one another. Diffusion and recoverable token routing are experiments, not locked architecture. Historical sprint text below does not make a full OCR engine a prerequisite for the VLM lane.
+
 **Generated:** 2026-05-19  
 **Estimated Complexity:** High  
 **Planning mode:** `plan-harder` + `planner` synthesis  
@@ -8,7 +12,7 @@
 
 Build aKriti as an owned local-first multilingual document intelligence platform with a model family, canonical `aKritiDoc` structure, APIs, visual workbench, LibreOffice-native integration path, FilterTube model path, and Vinti/court downstream path.
 
-The plan avoids permanent dependency on external OCR/VLM systems. Open weights may be used as initialization/teacher material. Public OCR/VLM/layout projects are references, baselines, or temporary R&D tools only.
+The plan owns its modules, contracts and runtime rather than depending on external OCR/VLM products. Separately approved compatible open weights may be declared initialization material with license/version/role/lineage records. External model implementations, processors, outputs, generated labels and verifier decisions are not imported as shortcuts; published systems are engineering references. Any internal mentor experiment requires its own eligible owned pipeline and authorization.
 
 ## Prerequisites
 
@@ -17,7 +21,7 @@ The plan avoids permanent dependency on external OCR/VLM systems. Open weights m
 - future C++ LibreOffice bridge
 - access to local PDFs/images/docs for seed tests
 - clear license tracking for datasets, weights, and derived checkpoints
-- GPU/cloud access later for serious model training
+- optional local or Colab research compute under the resumable workflow; actual accelerator capacity, data permissions and budgets recorded before execution
 
 ## Sprint 0: Source-of-truth documentation
 
@@ -660,7 +664,7 @@ Recommended implementation choices:
 
 Bounded loop requirement:
 
-- Run 5-7 voters for high-impact triage questions.
+- Invoke justified complementary readers under an explicit budget. A configured 3/5/7-reader cap is optional, not a quota or confidence guarantee; measure shared errors and retain mandatory review.
 - Allow targeted reread, restoration, critique, and revote.
 - Stop after fixed iteration/runtime budget.
 - If confidence remains low, mark `needs_human_review`.
@@ -1058,3 +1062,17 @@ See [Owned Indic CPU Reader and Selective Processing](akriti-indic-cpu-reader-an
 7. Integrate source-linked review/cancellation into the existing aKritiDoc workbench and native LibreOffice boundary; expand scripts/handwriting only after their own gates.
 
 The platform remains VLM-first with complementary owned CPU capabilities. No external OCR implementation, weights, dictionaries, teacher material or verifier is used. No 1M-parameter, 80-language, handwriting, throughput or device-memory claim is made for aKriti. This is a dependency-ordered plan, not delivered implementation or authorization to run training/benchmarks.
+
+## 2026-10-22 Queue: Typed Decisions, Separate Verifiers
+
+1. Alongside source/aKritiDoc mechanics, design EXP-046 fixtures and versioned request/observation/policy schemas. Markdown is not executable schema completion.
+2. Keep document-VLM and complementary CPU controls parallel. Freeze crop transforms/candidates and independently label critical Indic, unreadable and missing-correct-candidate cases.
+3. EXP-047 compares deterministic/simple visual heads on owned representations. No text-only judge validates strokes or stamps; outside verifier outputs are not labels.
+4. EXP-048 selects calibration/policy separately from sealed evaluation and stresses source/script/precision/choice sets. Report risk, coverage, critical errors and complete costs.
+5. Reuse bounded source rereads and candidate recovery, EXP-035/042, before larger panels. A pack must beat its strongest single reader at matched budget.
+6. EXP-049 stays later: shared weights, arbitrary-question support, distillation, ordinal scales and browser packaging are not selected architecture or prerequisites.
+7. Bolio/LibreOffice consume revisioned proposals; preview, permissions and undo remain product-owned. Shruti stays Zero -> fixed bounded Tiny -> profiling/INT8 -> optional repair, with TTS/general decisions later. Vinti remains downstream.
+
+Prospective acceptance cases include stale/cancelled observations, unavailable evidence, option identity, out-of-scope calibration, no duplicate action and no unlogged correction. These are future tasks, not tests run now.
+
+Retain independent product scorecards and actual device memory/latency. A low-bit file, cached-state benchmark, small pilot or Colab run does not establish Indic quality, local deployment, novelty or funding.

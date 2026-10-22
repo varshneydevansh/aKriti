@@ -1,5 +1,7 @@
 # Docs
 
+> 2026-10-22 planning addendum: the shared decision contract separates modality-specific observations from product policy. Acoustic and visual verifiers stay separate; a general natural-language decision model remains experimental. This is documentation, not implemented capability.
+
 This folder contains project documentation that supports implementation, onboarding, and operation.
 
 Canonical aKriti planning/spec documents:
@@ -43,7 +45,9 @@ Planned operational documents:
 - `docs/akriti-multilingual-indic-translation-plan.md` defines native Indic-script fidelity, Hinglish/code-mixed handling, tokenizer policy, and layout-preserving translation.
 - `docs/akriti-workbench-ui-product-spec.md` defines the Workbench as a document review cockpit with overlays, grounded chat/actions, verification queues, and correction capture.
 - `docs/akriti-security-privacy-local-first.md` defines local-first processing, consent boundaries, remote fallback rules, artifact storage, and high-stakes safety mode.
-- `docs/akriti-confidence-voting-review.md` defines confidence scoring, multi-pass voting, disagreement detection, low-confidence UI, and human review queues.
+- `docs/akriti-confidence-voting-review.md` defines source-grounded confidence, optional complementary readers, disagreement and human review; counts and scores do not grant action authority.
+- [Shared local decision contract v0](akriti-shared-decision-contract-v0.md) defines requests, evidence observations and policy decisions, independent visual/acoustic profiles, scoped calibration and explicit failure states.
+- [Evidence and adaptive-compute plan](akriti-evidence-and-adaptive-compute-research-plan.md) stages task-specific heads before optional shared/general decision research; see EXP-046 through EXP-049.
 
 ## Reasoning/action and downstream products
 
